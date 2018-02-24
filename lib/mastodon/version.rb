@@ -38,7 +38,7 @@ module Mastodon
 
     # specify git tag or commit hash here
     def source_tag
-      nil
+      'custom-220'
     end
 
     def source_url
