@@ -1,0 +1,9 @@
+$ui-base-color: #623108; // darkest
+$ui-highlight-color: #de9400; // vibrant
+$ui-secondary-color: #fff6a4; // lightest
+$ui-primary-color: #f6e652; // lighter
+$ui-primary-color-alt: #f6bd20; // darker, for external pages
+
+$about-page-text: lighten($ui-base-color, 50%);
+
+@import 'application';

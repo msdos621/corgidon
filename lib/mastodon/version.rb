@@ -17,7 +17,7 @@ module Mastodon
     end
 
     def pre
-      nil
+      'bd1'
     end
 
     def flags
@@ -33,7 +33,7 @@ module Mastodon
     end
 
     def source_base_url
-      'https://github.com/tootsuite/mastodon'
+      'https://github.com/usbsnowcrash/mastodon'
     end
 
     # specify git tag or commit hash here
