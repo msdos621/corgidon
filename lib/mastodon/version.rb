@@ -17,11 +17,11 @@ module Mastodon
     end
 
     def pre
-      'bd1'
+      ''
     end
 
     def flags
-      'rc2'
+      'bd2'
     end
 
     def to_a

@@ -728,7 +728,7 @@ eo:
       <p>Originale adaptita el la <a href="https://github.com/discourse/discourse">privateca politiko de Discourse</a>.</p>
     title: Uzkondiĉoj kaj privateca politiko de %{instance}
   themes:
-    default: Mastodon
+    default: Pikachu
   time:
     formats:
       default: "%Y-%m-%d %H:%M"
