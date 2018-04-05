@@ -1,2 +1,3 @@
-default: styles/pikachu.scss
-jigglypuff: styles/jigglypuff.scss
+default: styles/jigglypuff.scss
+pikachu: styles/pikachu.scss
+geodude: styles/geodude.scss
