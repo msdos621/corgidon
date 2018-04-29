@@ -1,3 +1,5 @@
 default: styles/jigglypuff.scss
 pikachu: styles/pikachu.scss
 geodude: styles/geodude.scss
+contrast: styles/contrast.scss
+
