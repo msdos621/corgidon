@@ -41,7 +41,7 @@ services:
     depends_on:
       - db
       - redis
-#      - es
+      - es
     volumes:
       - ./public/assets:/mastodon/public/assets
       - ./public/packs:/mastodon/public/packs
