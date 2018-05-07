@@ -71,6 +71,7 @@ class ActivityPub::ProcessAccountService < BaseService
     @account.note                    = @json['summary'] || ''
     @account.locked                  = @json['manuallyApprovesFollowers'] || false
     @account.fields                  = property_values || {}
+    @account.actor_type              = @json['type']
   end
 
   def set_fetchable_attributes!
@@ -201,10 +202,7 @@ class ActivityPub::ProcessAccountService < BaseService
     return if @json['tag'].blank?
 
     as_array(@json['tag']).each do |tag|
-      case tag['type']
-      when 'Emoji'
-        process_emoji tag
-      end
+      process_emoji tag if equals_or_includes?(tag['type'], 'Emoji')
     end
   end
 
