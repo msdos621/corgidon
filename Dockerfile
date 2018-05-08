@@ -1,4 +1,4 @@
-FROM ruby:2.5.1-alpine3.7
+FROM ruby:2.4.4-alpine3.6
 
 LABEL maintainer="https://github.com/tootsuite/mastodon" \
       description="Your self-hosted, globally interconnected microblogging community"
@@ -35,8 +35,6 @@ RUN apk -U upgrade \
     git \
     icu-libs \
     imagemagick \
-    jemalloc \
-    jemalloc-dev \
     libidn \
     libpq \
     nodejs \
