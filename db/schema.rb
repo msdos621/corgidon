@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_06_221944) do
+ActiveRecord::Schema.define(version: 2018_05_14_130000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -447,7 +447,8 @@ ActiveRecord::Schema.define(version: 2018_05_06_221944) do
     t.bigint "account_id", null: false
     t.bigint "application_id"
     t.bigint "in_reply_to_account_id"
-    t.index ["account_id", "id", "visibility", "updated_at"], name: "index_statuses_20180106", order: { id: :desc }
+    t.index ["account_id", "id", "visibility"], name: "index_statuses_on_account_id_and_id_and_visibility", where: "(visibility = ANY (ARRAY[0, 1, 2]))"
+    t.index ["account_id", "id"], name: "index_statuses_on_account_id_and_id", where: "(visibility = 3)"
     t.index ["conversation_id"], name: "index_statuses_on_conversation_id"
     t.index ["in_reply_to_id"], name: "index_statuses_on_in_reply_to_id"
     t.index ["reblog_of_id", "account_id"], name: "index_statuses_on_reblog_of_id_and_account_id"
@@ -539,6 +540,10 @@ ActiveRecord::Schema.define(version: 2018_05_06_221944) do
     t.json "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "access_token_id"
+    t.bigint "user_id"
+    t.index ["access_token_id"], name: "index_web_push_subscriptions_on_access_token_id"
+    t.index ["user_id"], name: "index_web_push_subscriptions_on_user_id"
   end
 
   create_table "web_settings", force: :cascade do |t|
@@ -605,5 +610,7 @@ ActiveRecord::Schema.define(version: 2018_05_06_221944) do
   add_foreign_key "subscriptions", "accounts", name: "fk_9847d1cbb5", on_delete: :cascade
   add_foreign_key "users", "accounts", name: "fk_50500f500d", on_delete: :cascade
   add_foreign_key "users", "invites", on_delete: :nullify
+  add_foreign_key "web_push_subscriptions", "oauth_access_tokens", column: "access_token_id", on_delete: :cascade
+  add_foreign_key "web_push_subscriptions", "users", on_delete: :cascade
   add_foreign_key "web_settings", "users", name: "fk_11910667b2", on_delete: :cascade
 end

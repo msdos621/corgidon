@@ -21,7 +21,7 @@ module Mastodon
     end
 
     def flags
-      'bd1'
+      'bd2'
     end
 
     def to_a
