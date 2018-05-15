@@ -13,6 +13,9 @@ function fetchRoot() {
   return fetch('/', { credentials: 'include' });
 }
 
+const firefox = navigator.userAgent.match(/Firefox\/(\d+)/);
+const invalidOnlyIfCached = firefox && firefox[1] < 60;
+
 // Cause a new version of a registered Service Worker to replace an existing one
 // that is already installed, and replace the currently active worker on open pages.
 self.addEventListener('install', function(event) {
@@ -28,11 +31,10 @@ self.addEventListener('fetch', function(event) {
     const asyncResponse = fetchRoot();
     const asyncCache = openWebCache();
 
-    event.respondWith(asyncResponse.then(async response => {
+    event.respondWith(asyncResponse.then(response => {
       if (response.ok) {
-        const cache = await asyncCache;
-        await cache.put('/', response);
-        return response.clone();
+        return asyncCache.then(cache => cache.put('/', response.clone()))
+                         .then(() => response);
       }
 
       throw null;
@@ -41,35 +43,41 @@ self.addEventListener('fetch', function(event) {
     const asyncResponse = fetch(event.request);
     const asyncCache = openWebCache();
 
-    event.respondWith(asyncResponse.then(async response => {
+    event.respondWith(asyncResponse.then(response => {
       if (response.ok || response.type === 'opaqueredirect') {
-        await Promise.all([
+        return Promise.all([
           asyncCache.then(cache => cache.delete('/')),
           indexedDB.deleteDatabase('mastodon'),
-        ]);
+        ]).then(() => response);
       }
 
       return response;
     }));
   } else if (process.env.CDN_HOST ? url.host === process.env.CDN_HOST : url.pathname.startsWith('/system/')) {
-    event.respondWith(openSystemCache().then(async cache => {
-      const cached = await cache.match(event.request.url);
+    event.respondWith(openSystemCache().then(cache => {
+      return cache.match(event.request.url).then(cached => {
+        if (cached === undefined) {
+          const asyncResponse = invalidOnlyIfCached && event.request.cache === 'only-if-cached' ?
+            fetch(event.request, { cache: 'no-cache' }) : fetch(event.request);
 
-      if (cached === undefined) {
-        const fetched = await fetch(event.request);
+          return asyncResponse.then(response => {
+            if (response.ok) {
+              const put = cache.put(event.request.url, response.clone());
 
-        if (fetched.ok) {
-          try {
-            await cache.put(event.request.url, fetched.clone());
-          } finally {
-            freeStorage();
-          }
+              put.catch(() => freeStorage());
+
+              return put.then(() => {
+                freeStorage();
+                return response;
+              });
+            }
+
+            return response;
+          });
         }
 
-        return fetched;
-      }
-
-      return cached;
+        return cached;
+      });
     }));
   }
 });
