@@ -1,4 +1,4 @@
-import { freeStorage } from '../storage/modifier';
+import { freeStorage, storageFreeable } from '../storage/modifier';
 import './web_push_notifications';
 
 function openSystemCache() {
@@ -10,7 +10,7 @@ function openWebCache() {
 }
 
 function fetchRoot() {
-  return fetch('/', { credentials: 'include' });
+  return fetch('/', { credentials: 'include', redirect: 'manual' });
 }
 
 const firefox = navigator.userAgent.match(/Firefox\/(\d+)/);
@@ -31,14 +31,10 @@ self.addEventListener('fetch', function(event) {
     const asyncResponse = fetchRoot();
     const asyncCache = openWebCache();
 
-    event.respondWith(asyncResponse.then(response => {
-      if (response.ok) {
-        return asyncCache.then(cache => cache.put('/', response.clone()))
-                         .then(() => response);
-      }
-
-      throw null;
-    }).catch(() => asyncCache.then(cache => cache.match('/'))));
+    event.respondWith(asyncResponse.then(
+      response => asyncCache.then(cache => cache.put('/', response.clone()))
+                            .then(() => response),
+      () => asyncCache.then(cache => cache.match('/'))));
   } else if (url.pathname === '/auth/sign_out') {
     const asyncResponse = fetch(event.request);
     const asyncCache = openWebCache();
@@ -53,7 +49,7 @@ self.addEventListener('fetch', function(event) {
 
       return response;
     }));
-  } else if (process.env.CDN_HOST ? url.host === process.env.CDN_HOST : url.pathname.startsWith('/system/')) {
+  } else if (storageFreeable && process.env.CDN_HOST ? url.host === process.env.CDN_HOST : url.pathname.startsWith('/system/')) {
     event.respondWith(openSystemCache().then(cache => {
       return cache.match(event.request.url).then(cached => {
         if (cached === undefined) {
