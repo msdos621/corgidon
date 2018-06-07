@@ -23,7 +23,11 @@ services:
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     networks:
+      - external_network
       - internal_network
+    ports:
+      - "127.0.0.1:9200:9200"
+      - "127.0.0.1:9300:9300"
     volumes:
       - ./elasticsearch:/usr/share/elasticsearch/data
 
@@ -81,6 +85,7 @@ services:
     build: https://github.com/usbsnowcrash/docker-tor.git
     networks:
       - external_network
+      - internal_network
 
   privoxy:
     build: https://github.com/usbsnowcrash/docker-privoxy.git
@@ -89,6 +94,7 @@ services:
       - ./priv-config:/opt/config
     networks:
       - external_network
+      - internal_network
 
 networks:
   external_network:
