@@ -220,6 +220,10 @@
         "id": "status.delete"
       },
       {
+        "defaultMessage": "Delete & re-draft",
+        "id": "status.redraft"
+      },
+      {
         "defaultMessage": "Direct message @{name}",
         "id": "status.direct"
       },
@@ -376,6 +380,14 @@
       {
         "defaultMessage": "Are you sure you want to delete this status?",
         "id": "confirmations.delete.message"
+      },
+      {
+        "defaultMessage": "Delete & redraft",
+        "id": "confirmations.redraft.confirm"
+      },
+      {
+        "defaultMessage": "Are you sure you want to delete this status and re-draft it? You will lose all replies, boosts and favourites to it.",
+        "id": "confirmations.redraft.message"
       },
       {
         "defaultMessage": "Block",
@@ -805,10 +817,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Trending now",
-        "id": "trends.header"
-      },
-      {
         "defaultMessage": "People",
         "id": "search_results.accounts"
       },
@@ -1095,10 +1103,6 @@
         "id": "navigation_bar.lists"
       },
       {
-        "defaultMessage": "Refresh",
-        "id": "trends.refresh"
-      },
-      {
         "defaultMessage": "Discover",
         "id": "navigation_bar.discover"
       },
@@ -1113,10 +1117,6 @@
       {
         "defaultMessage": "Getting started",
         "id": "getting_started.heading"
-      },
-      {
-        "defaultMessage": "Trending now",
-        "id": "trends.header"
       },
       {
         "defaultMessage": "Hotkeys",
@@ -1499,6 +1499,10 @@
         "id": "status.delete"
       },
       {
+        "defaultMessage": "Delete & re-draft",
+        "id": "status.redraft"
+      },
+      {
         "defaultMessage": "Direct message @{name}",
         "id": "status.direct"
       },
@@ -1578,6 +1582,14 @@
       {
         "defaultMessage": "Are you sure you want to delete this status?",
         "id": "confirmations.delete.message"
+      },
+      {
+        "defaultMessage": "Delete & redraft",
+        "id": "confirmations.redraft.confirm"
+      },
+      {
+        "defaultMessage": "Are you sure you want to delete this status and re-draft it? You will lose all replies, boosts and favourites to it.",
+        "id": "confirmations.redraft.message"
       },
       {
         "defaultMessage": "Block",
