@@ -424,7 +424,7 @@ nl:
     following: 'Succes! Jij volgt nu:'
     post_follow:
       close: Of je kan dit venster gewoon sluiten.
-      return: Ga terug naar het profiel van de gebruiker
+      return: Profiel van deze gebruiker tonen
       web: Ga naar de webapp
     title: Volg %{acct}
   datetime:
@@ -514,6 +514,7 @@ nl:
       '86400': 1 dag
     expires_in_prompt: Nooit
     generate: Genereren
+    invited_by: 'Jij bent uitgenodigd door:'
     max_uses:
       one: 1 keer
       other: "%{count} keer"

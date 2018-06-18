@@ -13,7 +13,7 @@ module Mastodon
     end
 
     def patch
-      1
+      2
     end
 
     def pre
@@ -21,7 +21,7 @@ module Mastodon
     end
 
     def flags
-      'bd3'
+      'bd1'
     end
 
     def to_a
