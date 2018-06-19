@@ -96,12 +96,6 @@ services:
       - external_network
       - internal_network
 
-  i2p:
-    build: https://git.sergal.org/Sir-Boops/docker-i2pd.git
-    networks:
-      - external_network
-      - internal_network      
-
 networks:
   external_network:
   internal_network:
