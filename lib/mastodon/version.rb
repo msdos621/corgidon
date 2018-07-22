@@ -17,7 +17,7 @@ module Mastodon
     end
 
     def pre
-      ''
+      'dachshund'
     end
 
     def flags
