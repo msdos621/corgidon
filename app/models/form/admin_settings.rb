@@ -16,6 +16,8 @@ class Form::AdminSettings
     :site_extended_description=,
     :site_terms,
     :site_terms=,
+    :recaptcha,
+    :recaptcha=,
     :open_registrations,
     :open_registrations=,
     :closed_registrations_message,

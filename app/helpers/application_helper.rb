@@ -23,6 +23,10 @@ module ApplicationHelper
     Setting.open_registrations
   end
 
+  def recaptcha_enabled?
+    Setting.recaptcha
+  end
+
   def open_deletion?
     Setting.open_deletion
   end
