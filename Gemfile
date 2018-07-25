@@ -31,6 +31,7 @@ gem 'chewy', '~> 5.0'
 gem 'cld3', '~> 3.2.0'
 gem 'devise', '~> 4.4'
 gem 'devise-two-factor', '~> 3.0'
+gem 'recaptcha', '~> 4.1'
 
 group :pam_authentication, optional: true do
   gem 'devise_pam_authenticatable2', '~> 9.1'

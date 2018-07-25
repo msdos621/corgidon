@@ -78,6 +78,22 @@ RSpec.describe Admin::SettingsController, type: :controller do
           expect(Setting.open_registrations).to eq true
         end
       end
+
+      context do
+        around do |example|
+          recaptcha = Setting.recaptcha
+          example.run
+          Setting.recaptcha = recaptcha
+        end
+
+        it 'typecasts open_registrations to boolean' do
+          Setting.recaptcha = false
+          patch :update, params: { form_admin_settings: { recaptcha: '1' } }
+
+          expect(response).to redirect_to(edit_admin_settings_path)
+          expect(Setting.recaptcha).to eq true
+        end
+      end
     end
   end
 end
