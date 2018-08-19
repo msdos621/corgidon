@@ -17,7 +17,7 @@ module Mastodon
     end
 
     def pre
-      'dachshund'
+      'poodle'
     end
 
     def flags
@@ -32,13 +32,17 @@ module Mastodon
       [to_a.join('.'), flags].join
     end
 
+    def repository
+      'usbsnowcrash/mastodon'
+    end
+
     def source_base_url
-      'https://github.com/usbsnowcrash/mastodon'
+      "https://github.com/#{repository}"
     end
 
     # specify git tag or commit hash here
     def source_tag
-      'custom-220'
+      '2.4.3-poodle'
     end
 
     def source_url
