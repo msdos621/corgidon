@@ -53,6 +53,9 @@ ENV PATH="${PATH}:/opt/ruby/bin:/opt/node/bin"
 RUN npm install -g yarn && \
 	gem install bundler
 
+# Have to ensure these exist before I mount the volume and copy stuff from host system
+RUN mkdir -p /opt/mastodon/public/system /opt/mastodon/public/assets /opt/mastodon/public/packs
+VOLUME /opt/mastodon/public/system
 COPY . /opt/mastodon
 
 RUN apt -y install git libicu-dev libidn11-dev \
@@ -102,6 +105,5 @@ RUN chmod +x /tini
 
 USER mastodon
 WORKDIR /opt/mastodon
-VOLUME /opt/mastodon/public/system
 
 ENTRYPOINT ["/tini", "--"]
