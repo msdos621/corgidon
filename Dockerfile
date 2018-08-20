@@ -20,7 +20,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 RUN apt-get update  -qqy \
- && apt-get install -qqy libicu-dev libidn11-dev libprotobuf-dev protobuf-compiler ffmpeg nodejs yarn \
+ && apt-get install -qqy libicu-dev libidn11-dev libprotobuf-dev protobuf-compiler ffmpeg nodejs yarn dumb-init \
  && cd /mastodon \
  && rm -rf /tmp/* /var/cache/apk/* /var/lib/apt/lists/*
 
@@ -44,4 +44,4 @@ USER mastodon
 
 RUN OTP_SECRET=precompile_placeholder SECRET_KEY_BASE=precompile_placeholder bundle exec rails assets:precompile
 
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
