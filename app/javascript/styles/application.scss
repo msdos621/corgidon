@@ -24,3 +24,7 @@
 @import 'mastodon/dashboard';
 @import 'mastodon/rtl';
 @import 'mastodon/accessibility';
+
+.status__action-bar__counter__label {
+  display:none;
+}

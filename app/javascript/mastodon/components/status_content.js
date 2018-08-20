@@ -56,7 +56,8 @@ export default class StatusContent extends React.PureComponent {
       link.setAttribute('target', '_blank');
       link.setAttribute('rel', 'noopener');
     }
-
+    //alert(JSON.stringify(this.state));
+    //alert(JSON.stringify(this.props));
     if (this.props.collapsable && this.state.collapsed === null && node.clientHeight > 200) this.setState({ collapsed: true });
   }
 
@@ -116,6 +117,7 @@ export default class StatusContent extends React.PureComponent {
     } else {
       this.setState({ hidden: !this.state.hidden });
     }
+    this.setState({ collapsed: !this.state.hidden });
   }
 
   handleCollapsedClick = (e) => {
