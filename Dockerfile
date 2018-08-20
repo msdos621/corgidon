@@ -53,14 +53,12 @@ ENV PATH="${PATH}:/opt/ruby/bin:/opt/node/bin"
 RUN npm install -g yarn && \
 	gem install bundler
 
-# Have to ensure these exist before I mount the volume and copy stuff from host system
-RUN mkdir -p /opt/mastodon/public/system /opt/mastodon/public/assets /opt/mastodon/public/packs
-VOLUME /opt/mastodon/public/system
-COPY . /opt/mastodon
-
+ENV MASTO_HASH="2.4.3-poodle"
 RUN apt -y install git libicu-dev libidn11-dev \
 	libpq-dev libprotobuf-dev protobuf-compiler && \
+	git clone https://github.com/usbsnowcrash/mastodon /opt/mastodon && \
 	cd /opt/mastodon && \
+	git checkout $MASTO_HASH && \
 	bundle install -j$(nproc) --deployment --without development test && \
 	yarn install --pure-lockfile && \
 	rm -rf .git
@@ -105,5 +103,4 @@ RUN chmod +x /tini
 
 USER mastodon
 WORKDIR /opt/mastodon
-
 ENTRYPOINT ["/tini", "--"]

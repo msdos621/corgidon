@@ -47,8 +47,6 @@ services:
       - redis
       - tor
       - privoxy
-    volumes:
-      - ./public/system:/opt/mastodon/public/system
 
   streaming:
     build: .
@@ -79,8 +77,6 @@ services:
     networks:
       - external_network
       - internal_network
-    volumes:
-      - ./public/system:/opt/mastodon/public/system
 
   tor:
     build: https://github.com/usbsnowcrash/docker-tor.git
