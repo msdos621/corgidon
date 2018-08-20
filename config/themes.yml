@@ -1,6 +1,11 @@
 default: styles/jigglypuff.scss
-pikachu: styles/pikachu.scss
-geodude: styles/geodude.scss
 contrast: styles/contrast.scss
+cybrespace: styles/cybre.scss
+cybrespace-light: styles/cybre-light.scss
+cybrespace-windows95: styles/win95.scss
+geodude: styles/geodude.scss
+mastodon: styles/application.scss
 mastodon-light: styles/mastodon-light.scss
-comic-puff: styles/comicpuff.scss
+royal-tenenbaums: styles/royal-tenenbaums.scss
+sleeping-town: styles/sleepingtown.scss
+witches-town: styles/witches-town.scss

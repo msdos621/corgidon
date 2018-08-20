@@ -8,3 +8,12 @@ $ui-primary-color-alt: #a41020; // darker, for external pages #2
 $about-page-text: lighten($ui-base-color, 50%);
 
 @import 'application';
+.button:hover {
+  background-color: #e54252;
+}
+
+.confirmation-modal .button {
+  background-color: $ui-highlight-color;
+}
+
+
