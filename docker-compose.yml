@@ -33,7 +33,7 @@ services:
 
   web:
     build: .
-    image: usbsnowcrash/mastodonjem
+    image: tootsuite/mastodon
     restart: always
     env_file: .env.production
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -45,12 +45,14 @@ services:
     depends_on:
       - db
       - redis
-      - tor
-      - privoxy
+    volumes:
+      - ./public/assets:/mastodon/public/assets
+      - ./public/packs:/mastodon/public/packs
+      - ./public/system:/mastodon/public/system
 
   streaming:
     build: .
-    image: usbsnowcrash/mastodonjem
+    image: tootsuite/mastodon
     restart: always
     env_file: .env.production
     command: yarn start
@@ -67,16 +69,21 @@ services:
 
   sidekiq:
     build: .
-    image: usbsnowcrash/mastodonjem
+    image: tootsuite/mastodon
     restart: always
     env_file: .env.production
     command: bundle exec sidekiq -q default -q mailers -q pull -q push
     depends_on:
       - db
       - redis
+      - tor
+      - privoxy
     networks:
       - external_network
       - internal_network
+    volumes:
+      - ./public/packs:/mastodon/public/packs
+      - ./public/system:/mastodon/public/system
 
   tor:
     build: https://github.com/usbsnowcrash/docker-tor.git
