@@ -46,8 +46,6 @@ services:
       - db
       - redis
     volumes:
-      - ./public/assets:/mastodon/public/assets
-      - ./public/packs:/mastodon/public/packs
       - ./public/system:/mastodon/public/system
 
   streaming:
@@ -82,7 +80,6 @@ services:
       - external_network
       - internal_network
     volumes:
-      - ./public/packs:/mastodon/public/packs
       - ./public/system:/mastodon/public/system
 
   tor:
