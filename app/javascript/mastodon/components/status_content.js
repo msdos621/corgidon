@@ -62,7 +62,7 @@ export default class StatusContent extends React.PureComponent {
       this.props.collapsable
       && this.state.collapsed === null
       && collapseLongMsg
-      && node.clientHeight > 200
+      && node.clientHeight > 250
       && this.props.status.get('spoiler_text').length === 0
     ) this.setState({ collapsed: true });
   }
