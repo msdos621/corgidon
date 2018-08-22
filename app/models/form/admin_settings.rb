@@ -20,6 +20,8 @@ class Form::AdminSettings
     :site_terms=,
     :recaptcha,
     :recaptcha=,
+    :collapse_long_msg,
+    :collapse_long_msg=,
     :open_registrations,
     :open_registrations=,
     :closed_registrations_message,

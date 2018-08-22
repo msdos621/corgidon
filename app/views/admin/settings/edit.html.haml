@@ -21,6 +21,9 @@
   %hr/
 
   .fields-group
+    = f.input :collapse_long_msg, as: :boolean, wrapper: :with_label, label: t('admin.settings.collapse_long_msg.title'), hint: t('admin.settings.collapse_long_msg.desc_html')
+
+  .fields-group
     = f.input :timeline_preview, as: :boolean, wrapper: :with_label, label: t('admin.settings.timeline_preview.title'), hint: t('admin.settings.timeline_preview.desc_html')
 
   .fields-group
@@ -32,9 +35,9 @@
   .fields-group
     = f.input :open_registrations, as: :boolean, wrapper: :with_label, label: t('admin.settings.registrations.open.title'), hint: t('admin.settings.registrations.open.desc_html')
 
-  .fields-group
-    = f.input :recaptcha, as: :boolean, wrapper: :with_label, label: t('admin.settings.registrations.recaptcha.title'), hint: t('admin.settings.registrations.recaptcha.desc_html')
-
+  - if !ENV['RECAPTCHA_SITE_KEY'].blank?
+    .fields-group
+      = f.input :recaptcha, as: :boolean, wrapper: :with_label, label: t('admin.settings.registrations.recaptcha.title'), hint: t('admin.settings.registrations.recaptcha.desc_html')
 
   .fields-group
     = f.input :open_deletion, as: :boolean, wrapper: :with_label, label: t('admin.settings.registrations.deletion.title'), hint: t('admin.settings.registrations.deletion.desc_html')

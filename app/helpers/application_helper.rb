@@ -27,6 +27,10 @@ module ApplicationHelper
     Setting.recaptcha
   end
 
+  def collapse_long_msg?
+    Setting.collapse_long_msg
+  end
+
   def open_deletion?
     Setting.open_deletion
   end

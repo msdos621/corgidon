@@ -94,6 +94,22 @@ RSpec.describe Admin::SettingsController, type: :controller do
           expect(Setting.recaptcha).to eq true
         end
       end
+
+      context do
+        around do |example|
+          collapse_long_msg = Setting.collapse_long_msg
+          example.run
+          Setting.collapse_long_msg = collapse_long_msg
+        end
+
+        it 'typecasts open_registrations to boolean' do
+          Setting.collapse_long_msg = false
+          patch :update, params: { form_admin_settings: { collapse_long_msg: '1' } }
+
+          expect(response).to redirect_to(edit_admin_settings_path)
+          expect(Setting.collapse_long_msg).to eq true
+        end
+      end
     end
   end
 end

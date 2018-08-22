@@ -16,6 +16,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       search_enabled: Chewy.enabled?,
       version: Mastodon::Version.to_s,
       invites_enabled: Setting.min_invite_role == 'user',
+      collapse_long_msg: Setting.collapse_long_msg,
     }
 
     if object.current_account
