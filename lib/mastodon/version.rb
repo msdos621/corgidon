@@ -13,11 +13,11 @@ module Mastodon
     end
 
     def patch
-      3
+      4
     end
 
     def pre
-      'poodle'
+      'pug'
     end
 
     def flags
@@ -42,7 +42,7 @@ module Mastodon
 
     # specify git tag or commit hash here
     def source_tag
-      '2.4.3-poodle'
+      '2.4.4-pug'
     end
 
     def source_url
