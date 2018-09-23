@@ -9,15 +9,15 @@ module Mastodon
     end
 
     def minor
-      4
+      5
     end
 
     def patch
-      4
+      0
     end
 
     def pre
-      'pug'
+      'dorkie'
     end
 
     def flags
@@ -42,7 +42,7 @@ module Mastodon
 
     # specify git tag or commit hash here
     def source_tag
-      '2.4.4-pug'
+      nil
     end
 
     def source_url

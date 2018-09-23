@@ -16,6 +16,9 @@ services:
       - internal_network
     volumes:
       - ./redis:/data
+### Uncomment to enable REDIS persistence
+#    volumes:
+#      - ./redis:/data
 
 #  es:
 #    restart: always
@@ -25,11 +28,9 @@ services:
 #    networks:
 #      - external_network
 #      - internal_network
-#    ports:
-#      - "127.0.0.1:9200:9200"
-#      - "127.0.0.1:9300:9300"
-#    volumes:
-#      - ./elasticsearch:/usr/share/elasticsearch/data
+#### Uncomment to enable ES persistence
+##    volumes:
+##      - ./elasticsearch:/usr/share/elasticsearch/data
 
   web:
     build: .
@@ -70,7 +71,7 @@ services:
     image: usbsnowcrash/mastodon
     restart: always
     env_file: .env.production
-    command: bundle exec sidekiq -q default -q mailers -q pull -q push
+    command: bundle exec sidekiq -q default -q push -q mailers -q pull
     depends_on:
       - db
       - redis

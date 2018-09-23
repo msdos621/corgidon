@@ -68,6 +68,7 @@ function main() {
     });
 
     const reactComponents = document.querySelectorAll('[data-component]');
+
     if (reactComponents.length > 0) {
       import(/* webpackChunkName: "containers/media_container" */ '../mastodon/containers/media_container')
         .then(({ default: MediaContainer }) => {
@@ -79,11 +80,16 @@ function main() {
         .catch(error => console.error(error));
     }
 
-    new Rellax('.parallax', { speed: -1 });
+    const parallaxComponents = document.querySelectorAll('.parallax');
+
+    if (parallaxComponents.length > 0 ) {
+      new Rellax('.parallax', { speed: -1 });
+    }
 
     const history = createHistory();
     const detailedStatuses = document.querySelectorAll('.public-layout .detailed-status');
     const location = history.location;
+
     if (detailedStatuses.length === 1 && (!location.state || !location.state.scrolledToDetailedStatus)) {
       detailedStatuses[0].scrollIntoView();
       history.replace(location.pathname, { ...location.state, scrolledToDetailedStatus: true });
@@ -170,6 +176,30 @@ function main() {
       lock.style.display = 'inline';
     } else {
       lock.style.display = 'none';
+    }
+  });
+
+  delegate(document, '.input-copy input', 'click', ({ target }) => {
+    target.select();
+  });
+
+  delegate(document, '.input-copy button', 'click', ({ target }) => {
+    const input = target.parentNode.querySelector('input');
+
+    input.focus();
+    input.select();
+
+    try {
+      if (document.execCommand('copy')) {
+        input.blur();
+        target.parentNode.classList.add('copied');
+
+        setTimeout(() => {
+          target.parentNode.classList.remove('copied');
+        }, 700);
+      }
+    } catch (err) {
+      console.error(err);
     }
   });
 }

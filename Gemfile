@@ -7,6 +7,7 @@ gem 'pkg-config', '~> 1.3'
 
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.1'
+gem 'thor', '~> 0.20'
 
 gem 'hamlit-rails', '~> 0.2'
 gem 'pg', '~> 1.0'
@@ -26,6 +27,7 @@ gem 'addressable', '~> 2.5'
 gem 'bootsnap', '~> 1.3'
 gem 'browser'
 gem 'charlock_holmes', '~> 0.7.6'
+gem 'colorize'
 gem 'iso-639'
 gem 'chewy', '~> 5.0'
 gem 'cld3', '~> 3.2.0'
@@ -34,7 +36,7 @@ gem 'devise-two-factor', '~> 3.0'
 gem 'recaptcha', '~> 4.1'
 
 group :pam_authentication, optional: true do
-  gem 'devise_pam_authenticatable2', '~> 9.1'
+  gem 'devise_pam_authenticatable2', '~> 9.2'
 end
 
 gem 'net-ldap', '~> 0.10'
@@ -42,7 +44,7 @@ gem 'omniauth-cas', '~> 1.1'
 gem 'omniauth-saml', '~> 1.10'
 gem 'omniauth', '~> 1.2'
 
-gem 'doorkeeper', '~> 4.2', '< 4.3'
+gem 'doorkeeper', '~> 5.0'
 gem 'fast_blank', '~> 1.0'
 gem 'fastimage'
 gem 'goldfinger', '~> 2.1'
@@ -87,7 +89,7 @@ gem 'tty-command', '~> 0.8', require: false
 gem 'tty-prompt', '~> 0.16', require: false
 gem 'twitter-text', '~> 1.14'
 gem 'tzinfo-data', '~> 1.2018'
-gem 'webpacker', '~> 3.4'
+gem 'webpacker', '~> 3.5'
 gem 'webpush'
 
 gem 'json-ld', '~> 2.2'
@@ -103,7 +105,7 @@ group :development, :test do
 end
 
 group :production, :test do
-  gem 'private_address_check', '~> 0.4.1'
+  gem 'private_address_check', '~> 0.5'
 end
 
 group :test do

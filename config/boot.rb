@@ -8,7 +8,6 @@ Bootsnap.setup(
   development_mode:     ENV['RAILS_ENV'] == 'development',
   load_path_cache:      true,
   autoload_paths_cache: true,
-  disable_trace:        true,
   compile_cache_iseq:   false,
   compile_cache_yaml:   false
 )
