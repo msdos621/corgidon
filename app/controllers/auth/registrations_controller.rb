@@ -8,7 +8,9 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :set_sessions, only: [:edit, :update]
   before_action :set_instance_presenter, only: [:new, :create, :update]
+  before_action :check_captcha, only: [:create]
   before_action :set_body_classes, only: [:new, :create]
+
 
   def destroy
     not_found
@@ -66,6 +68,10 @@ class Auth::RegistrationsController < Devise::RegistrationsController
     Setting.open_registrations || @invite&.valid_for_use?
   end
 
+  def recaptcha_enabled?
+    Setting.recaptcha
+  end
+
   def invite_code
     if params[:user]
       params[:user][:invite_code]
@@ -75,6 +81,17 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
+  def check_captcha
+    return unless recaptcha_enabled?
+
+    unless verify_recaptcha
+      self.resource = resource_class.new sign_up_params
+      resource.validate # Look for any other validation errors besides Recaptcha
+      set_minimum_password_length
+      render('auth/registrations/new')
+    end
+  end
 
   def set_instance_presenter
     @instance_presenter = InstancePresenter.new

@@ -35,17 +35,6 @@
     transition: all 200ms ease-out;
   }
 
-  &--destructive {
-    transition: none;
-
-    &:active,
-    &:focus,
-    &:hover {
-      background-color: $error-red;
-      transition: none;
-    }
-  }
-
   &:disabled {
     background-color: $ui-primary-color;
     cursor: default;
@@ -230,6 +219,7 @@
 
 .dropdown-menu {
   position: absolute;
+  transform-origin: 50% 0;
 }
 
 .invisible {
@@ -631,14 +621,15 @@
 
 .status__content,
 .reply-indicator__content {
+  position: relative;
   font-size: 15px;
   line-height: 20px;
   word-wrap: break-word;
   font-weight: 400;
   overflow: hidden;
+  text-overflow: ellipsis;
   white-space: pre-wrap;
   padding-top: 2px;
-  color: $primary-text-color;
 
   &:focus {
     outline: 0;
@@ -717,6 +708,55 @@
 
     &.status__content__text--visible {
       display: block;
+    }
+  }
+}
+
+.status__content.status__content--collapsed {
+  padding-bottom: 25px;
+  height: 200px;
+
+  i {
+    transform: rotateX(0);
+  }
+}
+
+.status__content.status__content--expanded, {
+  padding-bottom: 25px;
+  height: auto;
+
+  i {
+    transform: rotateX(180deg);
+  }
+}
+
+.status__content__collapse-button {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 25px;
+  font-size: 18px;
+  line-height: 25px;
+  color: $inverted-text-color;
+  text-align: center;
+  background: $action-button-color;
+  transition: background .2s ease-in-out, color .2s ease-in-out;
+  border: 0;
+  border-radius: 2px;
+
+  &:hover {
+    background: lighten($action-button-color, 7%);
+  }
+
+  i {
+    transition: transform .2s ease-in-out;
+
+    &,
+    &:hover {
+      color: $inverted-text-color !important;
     }
   }
 }
@@ -932,31 +972,15 @@
   align-items: center;
   display: flex;
   margin-top: 8px;
-
-  &__counter {
-    display: inline-flex;
-    margin-right: 11px;
-    align-items: center;
-
-    .status__action-bar-button {
-      margin-right: 4px;
-    }
-
-    &__label {
-      display: inline-block;
-      width: 14px;
-      font-size: 12px;
-      font-weight: 500;
-      color: $action-button-color;
-    }
-  }
 }
 
 .status__action-bar-button {
+  float: left;
   margin-right: 18px;
 }
 
 .status__action-bar-dropdown {
+  float: left;
   height: 23.15px;
   width: 23.15px;
 }
@@ -1632,22 +1656,6 @@ a.account__display-name {
 
   ul {
     list-style: none;
-  }
-
-  &.left {
-    transform-origin: 100% 50%;
-  }
-
-  &.top {
-    transform-origin: 50% 100%;
-  }
-
-  &.bottom {
-    transform-origin: 50% 0;
-  }
-
-  &.right {
-    transform-origin: 0 50%;
   }
 }
 
@@ -3315,14 +3323,7 @@ a.status-card {
   border-radius: 4px;
   margin-left: 40px;
   overflow: hidden;
-
-  &.top {
-    transform-origin: 50% 100%;
-  }
-
-  &.bottom {
-    transform-origin: 50% 0;
-  }
+  transform-origin: 50% 0;
 }
 
 .privacy-dropdown__option {
@@ -3392,10 +3393,6 @@ a.status-card {
         color: $primary-text-color;
       }
     }
-  }
-
-  &.top .privacy-dropdown__value {
-    border-radius: 0 0 4px 4px;
   }
 
   .privacy-dropdown__dropdown {
@@ -4200,10 +4197,6 @@ a.status-card {
 
   .status__content a {
     color: $highlight-text-color;
-  }
-
-  .status__content p {
-    color: $inverted-text-color;
   }
 
   @media screen and (max-width: 480px) {
@@ -5041,13 +5034,13 @@ noscript {
       & > .icon-button.close {
         will-change: opacity transform;
         transition: opacity $duration * 0.5 $delay,
-                    transform $duration $delay;
+        transform $duration $delay;
       }
 
       & > .compose__action-bar .icon-button {
         will-change: opacity transform;
         transition: opacity $duration * 0.5 $delay + $duration * 0.5,
-                    transform $duration $delay;
+        transform $duration $delay;
       }
     }
   }

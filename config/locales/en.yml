@@ -350,6 +350,9 @@ en:
       contact_information:
         email: Business e-mail
         username: Contact username
+      collapse_long_msg:
+        desc_html: Automatically collapse long messages in the timeline
+        title: Enable collapse
       hero:
         desc_html: Displayed on the frontpage. At least 600x100px recommended. When not set, falls back to instance thumbnail
         title: Hero image
@@ -372,6 +375,9 @@ en:
         open:
           desc_html: Allow anyone to create an account
           title: Open registration
+        recaptcha:
+          desc_html: Show recaptcha on registration
+          title: Enable recaptcha
       show_known_fediverse_at_about_page:
         desc_html: When toggled, it will show toots from all the known fediverse on preview. Otherwise it will only show local toots.
         title: Show known fediverse on timeline preview
@@ -855,8 +861,7 @@ en:
       <p>Originally adapted from the <a href="https://github.com/discourse/discourse">Discourse privacy policy</a>.</p>
     title: "%{instance} Terms of Service and Privacy Policy"
   themes:
-    contrast: High contrast
-    default: Mastodon
+    default: jigglypuff
     mastodon-light: Mastodon (light)
   time:
     formats:

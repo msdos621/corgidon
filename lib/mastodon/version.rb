@@ -13,11 +13,11 @@ module Mastodon
     end
 
     def patch
-      3
+      4
     end
 
     def pre
-      nil
+      'pug'
     end
 
     def flags
@@ -33,7 +33,7 @@ module Mastodon
     end
 
     def repository
-      'tootsuite/mastodon'
+      'usbsnowcrash/mastodon'
     end
 
     def source_base_url
@@ -42,7 +42,7 @@ module Mastodon
 
     # specify git tag or commit hash here
     def source_tag
-      nil
+      '2.4.4-pug'
     end
 
     def source_url

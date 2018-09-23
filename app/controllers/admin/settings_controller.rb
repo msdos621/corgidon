@@ -11,6 +11,8 @@ module Admin
       site_extended_description
       site_terms
       open_registrations
+      recaptcha
+      collapse_long_msg
       closed_registrations_message
       open_deletion
       timeline_preview
@@ -27,6 +29,8 @@ module Admin
 
     BOOLEAN_SETTINGS = %w(
       open_registrations
+      collapse_long_msg
+      recaptcha
       open_deletion
       timeline_preview
       show_staff_badge

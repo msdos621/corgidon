@@ -688,7 +688,7 @@ es:
     title: Términos del Servicio y Políticas de Privacidad de %{instance}
   themes:
     contrast: Alto contraste
-    default: Mastodon
+    default: jigglypuff
   time:
     formats:
       default: "%d de %b del %Y, %H:%M"

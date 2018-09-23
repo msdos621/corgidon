@@ -23,6 +23,14 @@ module ApplicationHelper
     Setting.open_registrations
   end
 
+  def recaptcha_enabled?
+    Setting.recaptcha
+  end
+
+  def collapse_long_msg?
+    Setting.collapse_long_msg
+  end
+
   def open_deletion?
     Setting.open_deletion
   end

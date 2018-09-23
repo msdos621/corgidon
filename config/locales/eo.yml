@@ -767,7 +767,7 @@ eo:
     title: Uzkondiĉoj kaj privateca politiko de %{instance}
   themes:
     contrast: Forta kontrasto
-    default: Mastodon
+    default: jigglypuff
     mastodon-light: Mastodon (hela)
   time:
     formats:
