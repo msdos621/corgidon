@@ -33,6 +33,8 @@ module ApplicationHelper
 
   def available_sign_up_path
     if closed_registrations?
+      return ENV['CUSTOM_CLOSED_JOIN_URL'] if ENV['CUSTOM_CLOSED_JOIN_URL'].present?
+
       'https://joinmastodon.org/#getting-started'
     else
       new_user_registration_path

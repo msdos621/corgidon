@@ -31,6 +31,7 @@
         = invite_request_fields.input :text, as: :text, wrapper: :with_block_label, required: false
 
   = f.input :invite_code, as: :hidden
+  = recaptcha_tags if recaptcha_enabled?
 
   .fields-group
     = f.input :agreement, as: :boolean, wrapper: :with_label, label: t('auth.checkbox_agreement_html', rules_path: about_more_path, terms_path: terms_path)

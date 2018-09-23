@@ -235,6 +235,7 @@
 
 .dropdown-menu {
   position: absolute;
+  transform-origin: 50% 0;
 }
 
 .invisible {
@@ -697,7 +698,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   padding-top: 2px;
-  color: $primary-text-color;
 
   &:focus {
     outline: 0;
@@ -1014,31 +1014,15 @@
   align-items: center;
   display: flex;
   margin-top: 8px;
-
-  &__counter {
-    display: inline-flex;
-    margin-right: 11px;
-    align-items: center;
-
-    .status__action-bar-button {
-      margin-right: 4px;
-    }
-
-    &__label {
-      display: inline-block;
-      width: 14px;
-      font-size: 12px;
-      font-weight: 500;
-      color: $action-button-color;
-    }
-  }
 }
 
 .status__action-bar-button {
+  float: left;
   margin-right: 18px;
 }
 
 .status__action-bar-dropdown {
+  float: left;
   height: 23.15px;
   width: 23.15px;
 }
@@ -1653,22 +1637,6 @@ a.account__display-name {
 
   ul {
     list-style: none;
-  }
-
-  &.left {
-    transform-origin: 100% 50%;
-  }
-
-  &.top {
-    transform-origin: 50% 100%;
-  }
-
-  &.bottom {
-    transform-origin: 50% 0;
-  }
-
-  &.right {
-    transform-origin: 0 50%;
   }
 }
 
@@ -3783,14 +3751,7 @@ a.status-card.compact:hover {
   border-radius: 4px;
   margin-left: 40px;
   overflow: hidden;
-
-  &.top {
-    transform-origin: 50% 100%;
-  }
-
-  &.bottom {
-    transform-origin: 50% 0;
-  }
+  transform-origin: 50% 0;
 }
 
 .privacy-dropdown__option {
@@ -3860,10 +3821,6 @@ a.status-card.compact:hover {
         color: $primary-text-color;
       }
     }
-  }
-
-  &.top .privacy-dropdown__value {
-    border-radius: 0 0 4px 4px;
   }
 
   .privacy-dropdown__dropdown {
@@ -5316,13 +5273,13 @@ noscript {
       & > .icon-button.close {
         will-change: opacity transform;
         transition: opacity $duration * 0.5 $delay,
-                    transform $duration $delay;
+        transform $duration $delay;
       }
 
       & > .compose__action-bar .icon-button {
         will-change: opacity transform;
         transition: opacity $duration * 0.5 $delay + $duration * 0.5,
-                    transform $duration $delay;
+        transform $duration $delay;
       }
     }
   }

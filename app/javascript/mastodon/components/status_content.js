@@ -28,6 +28,7 @@ export default class StatusContent extends React.PureComponent {
     hidden: true,
     collapsed: null, //  `collapsed: null` indicates that an element doesn't need collapsing, while `true` or `false` indicates that it does (and is/isn't).
   };
+  //  `collapsed: null` indicates that an element doesn't need collapsing, while `true` or `false` indicates that it does (and is/isn't).
 
   _updateStatusLinks () {
     const node = this.node;
@@ -80,7 +81,7 @@ export default class StatusContent extends React.PureComponent {
   }
 
   onMentionClick = (mention, e) => {
-    if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
+    if (this.context.router && e.button === 0) {
       e.preventDefault();
       this.context.router.history.push(`/accounts/${mention.get('id')}`);
     }
@@ -89,7 +90,7 @@ export default class StatusContent extends React.PureComponent {
   onHashtagClick = (hashtag, e) => {
     hashtag = hashtag.replace(/^#/, '').toLowerCase();
 
-    if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
+    if (this.context.router && e.button === 0) {
       e.preventDefault();
       this.context.router.history.push(`/timelines/tag/${hashtag}`);
     }

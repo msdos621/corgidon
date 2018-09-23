@@ -17,7 +17,7 @@ module Mastodon
     end
 
     def pre
-      nil
+      'pug'
     end
 
     def flags

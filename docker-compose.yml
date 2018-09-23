@@ -27,6 +27,7 @@ services:
 #    environment:
 #      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
 #    networks:
+#      - external_network
 #      - internal_network
 #    healthcheck:
 #      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
@@ -35,7 +36,7 @@ services:
 
   web:
     build: .
-    image: tootsuite/mastodon
+    image: usbsnowcrash/mastodon
     restart: always
     env_file: .env.production
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -49,13 +50,12 @@ services:
     depends_on:
       - db
       - redis
-#      - es
     volumes:
       - ./public/system:/mastodon/public/system
 
   streaming:
     build: .
-    image: tootsuite/mastodon
+    image: usbsnowcrash/mastodon
     restart: always
     env_file: .env.production
     command: yarn start
@@ -69,37 +69,39 @@ services:
     depends_on:
       - db
       - redis
+      - tor
+      - privoxy
 
   sidekiq:
     build: .
-    image: tootsuite/mastodon
+    image: usbsnowcrash/mastodon
     restart: always
     env_file: .env.production
     command: bundle exec sidekiq
     depends_on:
       - db
       - redis
+      - tor
+      - privoxy
     networks:
       - external_network
       - internal_network
     volumes:
       - ./public/system:/mastodon/public/system
-## Uncomment to enable federation with tor instances along with adding the following ENV variables
-## http_proxy=http://privoxy:8118
-## ALLOW_ACCESS_TO_HIDDEN_SERVICE=true
-#  tor:
-#    image: sirboops/tor
-#    networks:
-#      - external_network
-#      - internal_network
-#
-#  privoxy:
-#    image: sirboops/privoxy
-#    volumes:
-#      - ./priv-config:/opt/config
-#    networks:
-#      - external_network
-#      - internal_network
+  tor:
+    build: https://github.com/usbsnowcrash/docker-tor.git
+    networks:
+      - external_network
+      - internal_network
+
+  privoxy:
+    build: https://github.com/usbsnowcrash/docker-privoxy.git
+    command: /opt/sbin/privoxy --no-daemon --user privoxy.privoxy /opt/config
+    volumes:
+      - ./priv-config:/opt/config
+    networks:
+      - external_network
+      - internal_network
 
 networks:
   external_network:
