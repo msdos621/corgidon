@@ -28,6 +28,7 @@ gem 'addressable', '~> 2.6'
 gem 'bootsnap', '~> 1.4', require: false
 gem 'browser'
 gem 'charlock_holmes', '~> 0.7.6'
+gem 'colorize'
 gem 'iso-639'
 gem 'chewy', '~> 5.0'
 gem 'cld3', '~> 3.2.4'
