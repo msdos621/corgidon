@@ -46,6 +46,8 @@ services:
     depends_on:
       - db
       - redis
+      - tor
+      - privoxy
     volumes:
       - ./public/system:/mastodon/public/system
 
