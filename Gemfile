@@ -13,7 +13,7 @@ gem 'hamlit-rails', '~> 0.2'
 gem 'pg', '~> 1.1'
 gem 'makara', '~> 0.4'
 gem 'pghero', '~> 2.2'
-gem 'dotenv-rails', '~> 2.2', '< 2.3'
+gem 'dotenv-rails', '~> 2.5'
 
 gem 'aws-sdk-s3', '~> 1.21', require: false
 gem 'fog-core', '~> 2.1'
@@ -27,7 +27,6 @@ gem 'addressable', '~> 2.5'
 gem 'bootsnap', '~> 1.3', require: false
 gem 'browser'
 gem 'charlock_holmes', '~> 0.7.6'
-gem 'colorize'
 gem 'iso-639'
 gem 'chewy', '~> 5.0'
 gem 'cld3', '~> 3.2.0'
@@ -65,7 +64,7 @@ gem 'oj', '~> 3.6'
 gem 'ostatus2', '~> 2.0'
 gem 'ox', '~> 2.10'
 gem 'posix-spawn', git: 'https://github.com/rtomayko/posix-spawn', ref: '58465d2e213991f8afb13b984854a49fcdcc980c'
-gem 'pundit', '~> 1.1'
+gem 'pundit', '~> 2.0'
 gem 'premailer-rails'
 gem 'rack-attack', '~> 5.4'
 gem 'rack-cors', '~> 1.0', require: 'rack/cors'
@@ -83,7 +82,7 @@ gem 'simple-navigation', '~> 4.0'
 gem 'simple_form', '~> 4.0'
 gem 'sprockets-rails', '~> 3.2', require: 'sprockets/railtie'
 gem 'stoplight', '~> 2.1.3'
-gem 'strong_migrations', '~> 0.2'
+gem 'strong_migrations', '~> 0.3'
 gem 'tty-command', '~> 0.8', require: false
 gem 'tty-prompt', '~> 0.17', require: false
 gem 'twitter-text', '~> 1.14'
@@ -110,7 +109,7 @@ end
 group :test do
   gem 'capybara', '~> 3.9'
   gem 'climate_control', '~> 0.2'
-  gem 'faker', '~> 1.8'
+  gem 'faker', '~> 1.9'
   gem 'microformats', '~> 4.0'
   gem 'rails-controller-testing', '~> 1.0'
   gem 'rspec-sidekiq', '~> 3.0'
@@ -122,7 +121,7 @@ end
 group :development do
   gem 'active_record_query_trace', '~> 1.5'
   gem 'annotate', '~> 2.7'
-  gem 'better_errors', '~> 2.4'
+  gem 'better_errors', '~> 2.5'
   gem 'binding_of_caller', '~> 0.7'
   gem 'bullet', '~> 5.7'
   gem 'letter_opener', '~> 1.4'
@@ -134,7 +133,7 @@ group :development do
   gem 'scss_lint', '~> 0.57', require: false
 
   gem 'capistrano', '~> 3.11'
-  gem 'capistrano-rails', '~> 1.3'
+  gem 'capistrano-rails', '~> 1.4'
   gem 'capistrano-rbenv', '~> 2.1'
   gem 'capistrano-yarn', '~> 2.0'
 
