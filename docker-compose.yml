@@ -20,7 +20,6 @@ services:
       test: ["CMD", "redis-cli", "ping"]
     volumes:
       - ./redis:/data
-
 #  es:
 #    restart: always
 #    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.1.3
@@ -90,6 +89,7 @@ services:
       - internal_network
     volumes:
       - ./public/system:/mastodon/public/system
+
   tor:
     build: https://github.com/usbsnowcrash/docker-tor.git
     networks:
