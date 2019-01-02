@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
-require 'rubygems/package'
+require 'set'
 require_relative '../../config/boot'
 require_relative '../../config/environment'
 require_relative 'cli_helper'
 
 module Mastodon
   class AccountsCLI < Thor
+    def self.exit_on_failure?
+      true
+    end
+
     option :all, type: :boolean
     desc 'rotate [USERNAME]', 'Generate and broadcast new keys'
     long_desc <<-LONG_DESC
@@ -69,7 +73,7 @@ module Mastodon
     def create(username)
       account  = Account.new(username: username)
       password = SecureRandom.hex
-      user     = User.new(email: options[:email], password: password, admin: options[:role] == 'admin', moderator: options[:role] == 'moderator', confirmed_at: Time.now.utc)
+      user     = User.new(email: options[:email], password: password, agreement: true, admin: options[:role] == 'admin', moderator: options[:role] == 'moderator', confirmed_at: options[:confirmed] ? Time.now.utc : nil)
 
       if options[:reattach]
         account = Account.find_local(username) || Account.new(username: username)
@@ -207,57 +211,50 @@ module Mastodon
       Accounts that have had confirmed activity within the last week
       are excluded from the checks.
 
-      If 10 or more accounts from the same domain cannot be queried
-      due to a connection error (such as missing DNS records) then
-      the domain is considered dead, and all other accounts from it
-      are deleted without further querying.
+      Domains that are unreachable are not checked.
 
       With the --dry-run option, no deletes will actually be carried
       out.
     LONG_DESC
     def cull
-      domain_thresholds = Hash.new { |hash, key| hash[key] = 0 }
-      skip_threshold    = 7.days.ago
-      culled            = 0
-      dead_servers      = []
-      dry_run           = options[:dry_run] ? ' (DRY RUN)' : ''
+      skip_threshold = 7.days.ago
+      culled         = 0
+      skip_domains   = Set.new
+      dry_run        = options[:dry_run] ? ' (DRY RUN)' : ''
 
       Account.remote.where(protocol: :activitypub).partitioned.find_each do |account|
-        next if account.updated_at >= skip_threshold || account.last_webfingered_at >= skip_threshold
+        next if account.updated_at >= skip_threshold || (account.last_webfingered_at.present? && account.last_webfingered_at >= skip_threshold)
 
-        unless dead_servers.include?(account.domain)
+        unless skip_domains.include?(account.domain)
           begin
             code = Request.new(:head, account.uri).perform(&:code)
           rescue HTTP::ConnectionError
-            domain_thresholds[account.domain] += 1
-
-            if domain_thresholds[account.domain] >= 10
-              dead_servers << account.domain
-            end
+            skip_domains << account.domain
           rescue StandardError
             next
           end
         end
 
-        if [404, 410].include?(code) || dead_servers.include?(account.domain)
+        if [404, 410].include?(code)
           unless options[:dry_run]
             SuspendAccountService.new.call(account)
             account.destroy
           end
 
           culled += 1
-          say('.', :green, false)
+          say('+', :green, false)
         else
+          account.touch # Touch account even during dry run to avoid getting the account into the window again
           say('.', nil, false)
         end
       end
 
       say
-      say("Removed #{culled} accounts (#{dead_servers.size} dead servers)#{dry_run}", :green)
+      say("Removed #{culled} accounts. #{skip_domains.size} servers skipped#{dry_run}", skip_domains.empty? ? :green : :yellow)
 
-      unless dead_servers.empty?
-        say('R.I.P.:', :yellow)
-        dead_servers.each { |domain| say('    ' + domain) }
+      unless skip_domains.empty?
+        say('The following servers were not available during the check:', :yellow)
+        skip_domains.each { |domain| say('    ' + domain) }
       end
     end
 
@@ -303,6 +300,66 @@ module Mastodon
       end
     end
 
+    desc 'follow ACCT', 'Make all local accounts follow account specified by ACCT'
+    long_desc <<-LONG_DESC
+      Make all local accounts follow an account specified by ACCT. ACCT can be
+      a simple username, in case of a local user. It can also be in the format
+      username@domain, in case of a remote user.
+    LONG_DESC
+    def follow(acct)
+      target_account = ResolveAccountService.new.call(acct)
+      processed      = 0
+      failed         = 0
+
+      if target_account.nil?
+        say("Target account (#{acct}) could not be resolved", :red)
+        exit(1)
+      end
+
+      Account.local.without_suspended.find_each do |account|
+        begin
+          FollowService.new.call(account, target_account)
+          processed += 1
+          say('.', :green, false)
+        rescue StandardError
+          failed += 1
+          say('.', :red, false)
+        end
+      end
+
+      say("OK, followed target from #{processed} accounts, skipped #{failed}", :green)
+    end
+
+    desc 'unfollow ACCT', 'Make all local accounts unfollow account specified by ACCT'
+    long_desc <<-LONG_DESC
+      Make all local accounts unfollow an account specified by ACCT. ACCT can be
+      a simple username, in case of a local user. It can also be in the format
+      username@domain, in case of a remote user.
+    LONG_DESC
+    def unfollow(acct)
+      target_account = Account.find_remote(*acct.split('@'))
+      processed      = 0
+      failed         = 0
+
+      if target_account.nil?
+        say("Target account (#{acct}) was not found", :red)
+        exit(1)
+      end
+
+      target_account.followers.local.find_each do |account|
+        begin
+          UnfollowService.new.call(account, target_account)
+          processed += 1
+          say('.', :green, false)
+        rescue StandardError
+          failed += 1
+          say('.', :red, false)
+        end
+      end
+
+      say("OK, unfollowed target from #{processed} accounts, skipped #{failed}", :green)
+    end
+
     private
 
     def rotate_keys_for_account(account, delay = 0)
@@ -312,8 +369,8 @@ module Mastodon
       end
 
       old_key = account.private_key
-      new_key = OpenSSL::PKey::RSA.new(2048).to_pem
-      account.update(private_key: new_key)
+      new_key = OpenSSL::PKey::RSA.new(2048)
+      account.update(private_key: new_key.to_pem, public_key: new_key.public_key.to_pem)
       ActivityPub::UpdateDistributionWorker.perform_in(delay, account.id, sign_with: old_key)
     end
   end

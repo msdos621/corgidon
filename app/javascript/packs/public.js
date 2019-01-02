@@ -1,3 +1,4 @@
+import escapeTextContentForBrowser from 'escape-html';
 import loadPolyfills from '../mastodon/load_polyfills';
 import ready from '../mastodon/ready';
 import { start } from '../mastodon/common';
@@ -21,7 +22,6 @@ window.addEventListener('message', e => {
 });
 
 function main() {
-  const { length } = require('stringz');
   const IntlMessageFormat = require('intl-messageformat').default;
   const { timeAgoString } = require('../mastodon/components/relative_timestamp');
   const { delegate } = require('rails-ujs');
@@ -64,7 +64,7 @@ function main() {
       content.textContent = timeAgoString({
         formatMessage: ({ id, defaultMessage }, values) => (new IntlMessageFormat(messages[id] || defaultMessage, locale)).format(values),
         formatDate: (date, options) => (new Intl.DateTimeFormat(locale, options)).format(date),
-      }, datetime, now, datetime.getFullYear());
+      }, datetime, now, now.getFullYear());
     });
 
     const reactComponents = document.querySelectorAll('[data-component]');
@@ -133,23 +133,13 @@ function main() {
   });
 
   delegate(document, '#account_display_name', 'input', ({ target }) => {
-    const nameCounter = document.querySelector('.name-counter');
-    const name        = document.querySelector('.card .display-name strong');
-
-    if (nameCounter) {
-      nameCounter.textContent = 30 - length(target.value);
-    }
-
+    const name = document.querySelector('.card .display-name strong');
     if (name) {
-      name.innerHTML = emojify(target.value);
-    }
-  });
-
-  delegate(document, '#account_note', 'input', ({ target }) => {
-    const noteCounter = document.querySelector('.note-counter');
-
-    if (noteCounter) {
-      noteCounter.textContent = 160 - length(target.value);
+      if (target.value) {
+        name.innerHTML = emojify(escapeTextContentForBrowser(target.value));
+      } else {
+        name.textContent = document.querySelector('#default_account_display_name').textContent;
+      }
     }
   });
 
@@ -184,7 +174,7 @@ function main() {
   });
 
   delegate(document, '.input-copy button', 'click', ({ target }) => {
-    const input = target.parentNode.querySelector('input');
+    const input = target.parentNode.querySelector('.input-copy__wrapper input');
 
     input.focus();
     input.select();

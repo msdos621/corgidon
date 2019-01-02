@@ -1,5 +1,5 @@
 - if object.errors.any? || !flash[:recaptcha_error].blank?
-  .flash-message#error_explanation
+  .flash-message.alert#error_explanation
     %strong
       = t('generic.validation_errors', count: object.errors.count + (flash[:recaptcha_error].blank? ? 0 : 1))
       = flash[:recaptcha_error] unless flash[:recaptcha_error].blank?

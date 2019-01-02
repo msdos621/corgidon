@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Settings::PreferencesController < ApplicationController
+class Settings::PreferencesController < Settings::BaseController
   layout 'admin'
 
   before_action :authenticate_user!
@@ -47,6 +47,7 @@ class Settings::PreferencesController < ApplicationController
       :setting_noindex,
       :setting_theme,
       :setting_hide_network,
+      :setting_aggregate_reblogs,
       notification_emails: %i(follow follow_request reblog favourite mention digest report),
       interactions: %i(must_be_follower must_be_following)
     )

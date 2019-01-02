@@ -16,6 +16,7 @@ defaults: &defaults
   site_contact_email: ''
   open_registrations: true
   recaptcha: false
+  profile_directory: true
   closed_registrations_message: ''
   open_deletion: true
   min_invite_role: 'admin'
@@ -34,6 +35,7 @@ defaults: &defaults
   system_font_ui: false
   noindex: false
   theme: 'default'
+  aggregate_reblogs: true
   notification_emails:
     follow: false
     reblog: false

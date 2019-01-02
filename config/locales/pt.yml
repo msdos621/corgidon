@@ -92,10 +92,6 @@ pt:
       most_recent_activity: Actividade mais recente
       most_recent_ip: IP mais recente
       not_subscribed: Não inscrito
-      order:
-        alphabetic: Alfabética
-        most_recent: Mais recente
-        title: Ordem
       outbox_url: URL da caixa de saída
       perform_full_suspension: Fazer suspensão completa
       profile_url: URL do perfil
@@ -122,7 +118,6 @@ pt:
       shared_inbox_url: URL da caixa de entrada compartilhada
       show:
         created_reports: Relatórios gerados por esta conta
-        report: relatórios
         targeted_reports: Relatórios feitos sobre esta conta
       silence: Silêncio
       statuses: Status
@@ -150,7 +145,7 @@ pt:
         enable_user: "%{name} ativou o acesso para o utilizador %{target}"
         memorialize_account: "%{name} transformou a conta de %{target} em um memorial"
         promote_user: "%{name} promoveu o utilizador %{target}"
-        reset_password_user: "%{name} restabeleceu a palavra-passe do utilizador %{target"
+        reset_password_user: "%{name} restabeleceu a palavra-passe do utilizador %{target}"
         resolve_report: "%{name} recusou o relatório %{target}"
         silence_account: "%{name} silenciou a conta de %{target}"
         suspend_account: "%{name} suspendeu a conta de %{target}"
@@ -249,9 +244,7 @@ pt:
       reported_account: Conta denunciada
       reported_by: Denúnciada por
       resolved: Resolvido
-      silence_account: Conta silenciada
       status: Estado
-      suspend_account: Conta suspensa
       title: Denúncias
       unresolved: Por resolver
     settings:

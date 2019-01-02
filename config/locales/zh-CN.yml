@@ -30,13 +30,10 @@ zh-CN:
     other_instances: 其他实例
     privacy_policy: 隐私政策
     source_code: 源代码
-    status_count_after:
-      one: 条嘟文
+    status_count_after: 条嘟文
     status_count_before: 他们共嘟出了
     terms: 使用条款
-    user_count_after:
-      one: 位用户
-      other: 位用户
+    user_count_after: 位用户
     user_count_before: 这里共注册有
     what_is_mastodon: Mastodon 是什么？
   accounts:
@@ -48,7 +45,7 @@ zh-CN:
     joined: 加入于 %{date}
     media: 媒体
     moved_html: "%{name} 已经迁移到 %{new_profile_link}："
-    network_hidden: 此信息不可用。
+    network_hidden: 此信息不可用
     nothing_here: 这里神马都没有！
     people_followed_by: "%{name} 关注的人"
     people_who_follow: 关注 %{name} 的人
@@ -117,10 +114,6 @@ zh-CN:
       most_recent_activity: 最后一次活跃的时间
       most_recent_ip: 最后一次活跃的 IP 地址
       not_subscribed: 未订阅
-      order:
-        alphabetic: 按字母
-        most_recent: 按时间
-        title: 排序
       outbox_url: 发件箱（Outbox）URL
       perform_full_suspension: 永久封禁
       profile_url: 个人资料页面 URL
@@ -148,7 +141,6 @@ zh-CN:
       shared_inbox_url: 公用收件箱（Shared Inbox）URL
       show:
         created_reports: 这个帐户提交的举报
-        report: 个举报
         targeted_reports: 针对这个帐户的举报
       silence: 隐藏
       statuses: 嘟文
@@ -325,16 +317,14 @@ zh-CN:
         create_and_resolve: 添加记录并标记为“已处理”
         create_and_unresolve: 添加记录并重开
         delete: 删除
-        placeholder: 描述已经执行的操作，或其他任何相关的跟进情况
+        placeholder: 描述已经执行的操作，或其他任何相关的跟进情况…
       reopen: 重开举报
       report: '举报 #%{id}'
       reported_account: 举报用户
       reported_by: 举报人
       resolved: 已处理
       resolved_msg: 举报处理成功！
-      silence_account: 隐藏用户
       status: 状态
-      suspend_account: 封禁用户
       title: 举报
       unassign: 取消接管
       unresolved: 未处理
@@ -375,7 +365,7 @@ zh-CN:
           desc_html: 允许所有人建立帐户
           title: 开放注册
       show_known_fediverse_at_about_page:
-        desc_html: 启用此选项将会在预览中显示来自已知实例的嘟文，否则只会显示本站时间轴的内容
+        desc_html: 启用此选项将会在预览中显示来自已知实例的嘟文，否则只会显示本站时间轴的内容.
         title: 在时间轴预览中显示已知实例
       show_staff_badge:
         desc_html: 在个人资料页上显示管理人员标志
@@ -761,7 +751,7 @@ zh-CN:
       default: "%Y年%-m月%d日 %H:%M"
   two_factor_authentication:
     code_hint: 输入认证器生成的代码以确认操作
-    description_html: 启用<strong>双重认证</strong>后，你需要输入手机认证器生成的代码才能登录
+    description_html: 启用<strong>双重认证</strong>后，你需要输入手机认证器生成的代码才能登录.
     disable: 停用
     enable: 启用
     enabled: 双重认证已启用
@@ -791,7 +781,6 @@ zh-CN:
       review_preferences_action: 更改首选项
       review_preferences_step: 记得调整你的偏好设置，比如你想接收什么类型的邮件，或者你想把你的嘟文可见范围默认设置为什么级别。如果你没有晕动病的话，考虑一下启用“自动播放 GIF 动画”这个选项吧。
       subject: 欢迎来到 Mastodon
-      tip_bridge_html: 如果你刚从 Twitter 来到这里，你可以在<a href="%{bridge_url}">桥梁站（bridge app）</a>上寻找你的朋友。当然，前提是他们也登录了桥梁站！
       tip_federated_timeline: 跨站公共时间轴可以让你一窥更广阔的 Mastodon 网络。不过，由于它只显示你的邻居们所订阅的内容，所以并不是全部。
       tip_following: 默认情况下，你会自动关注你所在实例的管理员。想结交更多有趣的人的话，记得多逛逛本站时间轴和跨站公共时间轴哦。
       tip_local_timeline: 本站时间轴可以让你一窥 %{instance} 上的用户。他们就是离你最近的邻居！

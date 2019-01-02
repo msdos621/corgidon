@@ -75,6 +75,7 @@ class ActivityPub::ProcessAccountService < BaseService
     @account.note                    = @json['summary'] || ''
     @account.locked                  = @json['manuallyApprovesFollowers'] || false
     @account.fields                  = property_values || {}
+    @account.also_known_as           = as_array(@json['alsoKnownAs'] || []).map { |item| value_or_id(item) }
     @account.actor_type              = actor_type
   end
 
@@ -232,7 +233,7 @@ class ActivityPub::ProcessAccountService < BaseService
     updated   = tag['updated']
     emoji     = CustomEmoji.find_by(shortcode: shortcode, domain: @account.domain)
 
-    return unless emoji.nil? || image_url != emoji.image_remote_url || (updated && emoji.updated_at >= updated)
+    return unless emoji.nil? || image_url != emoji.image_remote_url || (updated && updated >= emoji.updated_at)
 
     emoji ||= CustomEmoji.new(domain: @account.domain, shortcode: shortcode, uri: uri)
     emoji.image_remote_url = image_url

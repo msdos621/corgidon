@@ -48,6 +48,8 @@ co:
       other: Abbunati
     following: Abbunamenti
     joined: Quì dapoi %{date}
+    last_active: ultima attività
+    link_verified_on: A pruprietà d'issu ligame hè stata verificata u %{date}
     media: Media
     moved_html: "%{name} hà cambiatu di contu, avà hè nant’à %{new_profile_link}:"
     network_hidden: St'infurmazione ùn hè micca dispunibule
@@ -102,6 +104,7 @@ co:
       followers: Abbunati
       followers_url: URL di l’abbunati
       follows: Abbunamenti
+      header: Intistatura
       inbox_url: URL di l’inbox
       ip: IP
       location:
@@ -113,6 +116,7 @@ co:
       media_attachments: Media aghjunti
       memorialize: Trasfurmà in mimuriale
       moderation:
+        active: Attivu
         all: Tutti
         silenced: Silenzati
         suspended: Suspesi
@@ -120,13 +124,10 @@ co:
       moderation_notes: Note di muderazione
       most_recent_activity: Attività più ricente
       most_recent_ip: IP più ricente
+      no_limits_imposed: Nisuna limita imposta
       not_subscribed: Micca abbunatu
-      order:
-        alphabetic: Alfabeticu
-        most_recent: Più ricente
-        title: Urdine
       outbox_url: URL di l’outbox
-      perform_full_suspension: Fà una suspensione cumpleta
+      perform_full_suspension: Suspende
       profile_url: URL di u prufile
       promote: Prumove
       protocol: Prutucollu
@@ -134,6 +135,7 @@ co:
       push_subscription_expires: Spirata di l’abbunamentu PuSH
       redownload: Mette à ghjornu i ritratti
       remove_avatar: Toglie l’avatar
+      remove_header: Toglie l'intistatura
       resend_confirmation:
         already_confirmed: St’utilizatore hè digià cunfirmatu
         send: Rimandà un’e-mail di cunfirmazione
@@ -152,11 +154,12 @@ co:
       shared_inbox_url: URL di l’inbox spartuta
       show:
         created_reports: Signalamenti creati da stu contu
-        report: Signalamentu
         targeted_reports: Signalamenti creati contr’à stu contu
       silence: Silenzà
+      silenced: Silenzatu
       statuses: Statuti
       subscribe: Abbunassi
+      suspended: Suspesu
       title: Conti
       unconfirmed_email: E-mail micca cunfirmatu
       undo_silenced: Ùn silenzà più
@@ -173,6 +176,7 @@ co:
         create_domain_block: "%{name} hà bluccatu u duminiu %{target}"
         create_email_domain_block: "%{name} hà messu u duminiu e-mail %{target} nant’a lista nera"
         demote_user: "%{name} hà ritrugradatu l’utilizatore %{target}"
+        destroy_custom_emoji: "%{name} hà sguassatu l'emoji %{target}"
         destroy_domain_block: "%{name} hà sbluccatu u duminiu %{target}"
         destroy_email_domain_block: "%{name} hà messu u duminiu e-mail %{target} nant’a lista bianca"
         destroy_status: "%{name} hà toltu u statutu di %{target}"
@@ -226,6 +230,7 @@ co:
       config: Cunfigurazione
       feature_deletions: Sguassamenti di conti
       feature_invites: Ligami d'invitazione
+      feature_profile_directory: Annuariu di i prufili
       feature_registrations: Arregistramenti
       feature_relay: Ripetitore di federazione
       features: Funziunalità
@@ -251,13 +256,15 @@ co:
         create: Creà un blucchime
         hint: U blucchime di duminiu ùn impedirà micca a creazione di conti indè a database, mà metudi di muderazione specifiche saranu applicati.
         severity:
-          desc_html: Cù<strong>Silenzà</strong>, solu l’abbunati di u contu viderenu i so missaghji. <strong>Suspende</strong> sguassarà tutti i cuntenuti è dati di u contu. Utilizate <strong>Nisuna</strong> s’è voi vulete solu righjittà fugliali media.
+          desc_html: Cù <strong>Silenzà</strong>, solu l’abbunati di u contu viderenu i so missaghji. <strong>Suspende</strong> sguassarà tutti i cuntenuti è dati di u contu. Utilizate <strong>Nisuna</strong> s’è voi vulete solu righjittà fugliali media.
           noop: Nisuna
           silence: Silenzà
           suspend: Suspende
         title: Novu blucchime di duminiu
       reject_media: Righjittà i fugliali media
       reject_media_hint: Sguassa tutti i media caricati è ricusa caricamenti futuri. Inutile per una suspensione
+      reject_reports: Righjittà i rapporti
+      reject_reports_hint: Ignurà tutti i signalamenti chì venenu d'issu duminiu. Senz'oghjettu pè e suspensione
       severities:
         noop: Nisuna
         silence: Silenzà
@@ -300,8 +307,13 @@ co:
       title: Invitazione
     relays:
       add_new: Aghjustà un ripetitore
+      delete: Sguassà
       description_html: Un <strong>ripetitore di federazione</strong> ghjè un servore intermediariu chì manda statuti pubblichi trà l'istanze abbunate. <strong>Pò aiutà l'istanze chjuche è mezane à scuprì u cuntinutu di u fediverse</strong> senza chì l'utilizatori appianu bisognu di seguità tutti i conti di l'altri servori.
+      disable: Disattivà
+      disabled: Disattivatu
+      enable: Attivà
       enable_hint: Quandu sarà attivatu, u vostru servore hà da seguità i statuti pubblichi di u ripetitore, è mandarà i so statuti pubblichi quallà.
+      enabled: Attivatu
       inbox_url: URL di u ripetitore
       pending: In attesa di l'apprubazione di u ripetitore
       save_and_enable: Salvà è attivà
@@ -336,9 +348,7 @@ co:
       reported_by: Palisatu da
       resolved: Scioltu è chjosu
       resolved_msg: Signalamentu scioltu!
-      silence_account: Silenzà u contu
       status: Statutu
-      suspend_account: Suspende u contu
       title: Signalamenti
       unassign: Disassignà
       unresolved: Micca sciolti
@@ -359,12 +369,18 @@ co:
       hero:
         desc_html: Affissatu nant’a pagina d’accolta. Ricumandemu almenu 600x100px. S’ellu ùn hè micca definiti, a vignetta di l’istanza sarà usata
         title: Ritrattu di cuprendula
+      mascot:
+        desc_html: Affissata nant'à parechje pagine. Almenu 293x205px ricumandatu. S'ella hè lasciata viota, a mascotta predefinita sarà utilizata
+        title: Ritrattu di a mascotta
       peers_api_enabled:
         desc_html: Indirizzi st’istanza hà vistu indè u fediverse
         title: Pubblicà a lista d’istanza cunnisciute
       preview_sensitive_media:
         desc_html: E priviste di i ligami nant'à l'altri siti mustreranu una vignetta ancu s'ellu hè marcatu cum'è sensibile u media
         title: Vede media sensibili in e viste OpenGraph
+      profile_directory:
+        desc_html: Auturizà a scuperta di l'utilizatori
+        title: Attivà l'annuariu di i prufili
       registrations:
         closed_message:
           desc_html: Affissatu nant’a pagina d’accolta quandu l’arregistramenti sò chjosi. Pudete fà usu di u furmattu HTML
@@ -424,12 +440,14 @@ co:
       last_delivery: Ultima arricata
       title: WebSub
       topic: Sughjettu
-    suspensions:
-      bad_acct_msg: U valore di cunfirmazione ùn era micca curretta. Site sicuru·a di suspende u bonu contu?
-      hint_html: 'Per cunfirmà a suspensione di u contu, entrate %{value} quì sottu:'
-      proceed: Cuntinuà
-      title: Suspende %{acct}
-      warning_html: 'A suspensione di u contu sguasserà di manera <strong>irreversibile</strong> i so dati, cum''è:'
+    tags:
+      accounts: Conti
+      hidden: Piattatu
+      hide: Piattà di l'annuariu
+      name: Hashtag
+      title: Hashtag
+      unhide: Mustrà in l'annuariu
+      visible: Visibile
     title: Amministrazione
   admin_mailer:
     new_report:
@@ -452,7 +470,7 @@ co:
     warning: Abbadate à quessi dati. Ùn i date à nisunu!
     your_token: Rigenerà a fiscia d’accessu
   auth:
-    agreement_html: Arregistrassi vole dì chì site d’accunsentu per siguità <a href="%{rules_path}">e regule di l’istanza</a> è <a href="%{terms_path}">e cundizione d’usu</a>.
+    agreement_html: Cliccà "Arregistrassi" quì sottu vole dì chì site d’accunsentu per siguità <a href="%{rules_path}">e regule di l’istanza</a> è <a href="%{terms_path}">e cundizione d’usu</a>.
     change_password: Chjave d’accessu
     confirm_email: Cunfirmà l’e-mail
     delete_account: Sguassà u contu
@@ -508,6 +526,13 @@ co:
     success_msg: U vostru contu hè statu sguassatu
     warning_html: Pudete esse sicuru·a solu chì u cuntenutu sarà sguassatu di st’istanza. S’ellu hè statu spartutu in altrò, sarà forse sempre quallà.
     warning_title: Dispunibilità di i cuntenuti sparsi
+  directories:
+    directory: Annuariu di i prufili
+    explanation: Scopre utilizatori à partesi di i so centri d'interessu
+    explore_mastodon: Scopre à %{title}
+    people:
+      one: "%{count} persona"
+      other: "%{count} persone"
   errors:
     '403': Ùn site micca auturizatu·a à vede sta pagina.
     '404': Sta pagina ùn esiste micca.
@@ -567,6 +592,7 @@ co:
     resources: Risorze
   generic:
     changes_saved_msg: Cambiamenti salvati!
+    copy: Cupià
     save_changes: Salvà e mudificazione
     validation_errors:
       one: Qualcosa ùn và bè! Verificate u prublemu quì sottu
@@ -900,7 +926,6 @@ co:
       review_preferences_action: Mudificà e priferenze
       review_preferences_step: Quì pudete adattà u cumpurtamentu di Mastodon à e vostre priferenze, cum’è l’email che vulete riceve, u nivellu di cunfidenzialità predefinitu di i vostri statuti, o u cumpurtamentu di i GIF animati.
       subject: Benvenutu·a nant’à Mastodon
-      tip_bridge_html: S’è voi venite di Twitter, pudete truvà i vostri amichi da quallà chì sò nant’à Mastodon cù a <a href="%{bridge_url}">bridge app</a>. Mà ùn marchja chè s’elli l’anu ancu usata!
       tip_federated_timeline: A linea pubblica glubale mostra i statuti da altre istanze nant’a rete Mastodon, mà ùn hè micca cumpleta perchè ci sò soli i conti à quelli sò abbunati membri di a vostr’istanza.
       tip_following: Site digià abbunatu·a à l’amministratori di u vostru servore. Per truvà d’altre parsone da siguità, pudete pruvà e linee pubbliche.
       tip_local_timeline: A linea pubblica lucale ghjè una vista crunulogica di i statuti di a ghjente nant’à %{instance}. Quessi sò i vostri cunvicini!
@@ -908,8 +933,12 @@ co:
       tips: Cunsiglii
       title: Benvenutu·a, %{name}!
   users:
+    follow_limit_reached: Ùn pidete seguità più di %{limit} conti
     invalid_email: L’indirizzu e-mail ùn hè currettu
     invalid_otp_token: U codice d’identificazione ùn hè currettu
     otp_lost_help_html: S’è voi avete persu i dui, pudete cuntattà %{email}
     seamless_external_login: Site cunnettatu·a dapoi un serviziu esternu, allora i parametri di chjave d’accessu è d’indirizzu e-mail ùn so micca dispunibili.
     signed_in_as: 'Cunnettatu·a cum’è:'
+  verification:
+    explanation_html: 'Pudete <strong>verificavi cum''è u pruprietariu di i ligami in i metadati di u vostru prufile</strong>. Per quessa, u vostru situ deve avè un ligame versu a vostra pagina Mastodon. U ligame <strong>deve</strong> avè un''attributu <code>rel="me"</code>. U cuntenutu di u testu di u ligame ùn hè micca impurtante. Eccu un''esempiu:'
+    verification: Verificazione

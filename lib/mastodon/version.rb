@@ -9,15 +9,15 @@ module Mastodon
     end
 
     def minor
-      5
+      6
     end
 
     def patch
-      1
+      6
     end
 
     def pre
-      'bulldog'
+      ''
     end
 
     def flags
