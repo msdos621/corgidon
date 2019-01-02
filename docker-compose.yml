@@ -10,6 +10,10 @@ services:
       test: ["CMD", "pg_isready", "-U", "postgres"]
     volumes:
       - ./postgres:/var/lib/postgresql/data
+    logging:
+      driver: "syslog"
+      options:
+        tag: "bananadog_db"
 
   redis:
     restart: always
@@ -20,7 +24,10 @@ services:
       test: ["CMD", "redis-cli", "ping"]
     volumes:
       - ./redis:/data
-
+    logging:
+      driver: "syslog"
+      options:
+        tag: "bananadog_redis"
 #  es:
 #    restart: always
 #    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.1.3
@@ -54,6 +61,10 @@ services:
       - privoxy
     volumes:
       - ./public/system:/mastodon/public/system
+    logging:
+      driver: "syslog"
+      options:
+        tag: "bananadog_web"
 
   streaming:
     build: .
@@ -73,6 +84,10 @@ services:
       - redis
       - tor
       - privoxy
+    logging:
+      driver: "syslog"
+      options:
+        tag: "bananadog_streaming"
 
   sidekiq:
     build: .
@@ -90,12 +105,20 @@ services:
       - internal_network
     volumes:
       - ./public/system:/mastodon/public/system
+    logging:
+      driver: "syslog"
+      options:
+        tag: "bananadog_sidekiq"
 
   tor:
     build: https://github.com/usbsnowcrash/docker-tor.git
     networks:
       - external_network
       - internal_network
+    logging:
+      driver: "syslog"
+      options:
+        tag: "bananadog_tor"
 
   privoxy:
     build: https://github.com/usbsnowcrash/docker-privoxy.git
@@ -105,6 +128,10 @@ services:
     networks:
       - external_network
       - internal_network
+    logging:
+      driver: "syslog"
+      options:
+        tag: "bananadog_privoxy"
 
 networks:
   external_network:
