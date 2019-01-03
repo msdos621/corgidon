@@ -1582,7 +1582,7 @@ body.admin {
 
 .embed-modal, .error-modal, .onboarding-modal,
 .actions-modal, .boost-modal, .confirmation-modal, .report-modal {
-  @include win95-outset()
+  @include win95-outset();
   background:$win95-bg;
 }
 
@@ -1706,7 +1706,7 @@ body.admin {
 .admin-wrapper {
   position:relative;
   background: $win95-bg;
-  @include win95-outset()
+  @include win95-outset();
   width:70vw;
   height:80vh;
   margin:10vh auto;
@@ -1743,7 +1743,7 @@ body.admin {
 .admin-wrapper .content-wrapper {
   flex: 1 1 auto;
   width:calc(100% - 20px);
-  @include win95-border-outset()
+  @include win95-border-outset();
   position:relative;
   margin-left:10px;
   margin-right:10px;
@@ -1984,7 +1984,7 @@ a.table-action-link:hover,
 .simple_form .block-button
 {
   background: $win95-bg;
-  @include win95-outset()
+  @include win95-outset();
   color:black;
   font-weight: normal;
 
