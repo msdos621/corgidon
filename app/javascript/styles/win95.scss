@@ -94,7 +94,7 @@ body.admin {
 
 .tabs-bar {
   background: $win95-bg;
-  @include win95-outset()
+  @include win95-outset();
   height: 30px;
 }
 
