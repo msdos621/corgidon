@@ -171,7 +171,7 @@ body.admin {
 
 .column > .scrollable {
   background: $win95-bg;
-  @include win95-border-outset()
+  @include win95-border-outset();
   border-top-width:0px;
 }
 
@@ -185,7 +185,7 @@ body.admin {
   padding:0px;
   font-size:13px;
   background:#7f7f7f;
-  @include win95-border-outset()
+  @include win95-border-outset();
   border-bottom-width:0px;
   color:white;
   font-weight:bold;
@@ -227,7 +227,7 @@ body.admin {
 .column-header__button {
   background: $win95-bg;
   color: black;
-  @include win95-outset()
+  @include win95-outset();
 
   line-height:0px;
   font-size:14px;
@@ -252,7 +252,7 @@ body.admin {
   max-height: 20px;
   min-height: unset;
   margin: 2px;
-  @include win95-outset()
+  @include win95-outset();
   font-size: 13px;
   line-height: 17px;
   font-weight:bold;
@@ -265,7 +265,7 @@ body.admin {
 .column-back-button {
   background:$win95-bg;
   color:black;
-  @include win95-outset()
+  @include win95-outset();
   font-size:13px;
   font-weight:bold;
 
@@ -394,7 +394,7 @@ body.admin {
 
 .text-btn {
   background-color:$win95-bg;
-  @include win95-outset()
+  @include win95-outset();
   padding:4px;
 }
 
@@ -432,7 +432,7 @@ body.admin {
 .missing-indicator {
   background-color:$win95-bg;
   color:black;
-  @include win95-outset()
+  @include win95-outset();
 }
 
 .missing-indicator > div {
@@ -564,7 +564,7 @@ body.admin {
 
 .icon-button {
   background:$win95-bg;
-  @include win95-border-outset()
+  @include win95-border-outset();
   padding:0px 0px 0px 0px;
   margin-right:4px;
 
@@ -598,7 +598,7 @@ body.admin {
 
 .icon-button.star-icon > i {
   background:$win95-bg;
-  @include win95-border-outset()
+  @include win95-border-outset();
   padding-bottom:3px;
 }
 
@@ -675,7 +675,7 @@ body.admin {
 
 .reply-indicator__content .status__content__spoiler-link, .status__content .status__content__spoiler-link {
   background:$win95-bg;
-  @include win95-outset()
+  @include win95-outset();
 }
 
 .reply-indicator__content .status__content__spoiler-link:hover, .status__content .status__content__spoiler-link:hover {
@@ -707,7 +707,7 @@ body.admin {
 
 .drawer__header {
   background: $win95-bg;
-  @include win95-border-outset()
+  @include win95-border-outset();
   justify-content:left;
   margin-bottom:0px;
   padding-bottom:2px;
@@ -932,7 +932,7 @@ body.admin {
 {
   box-shadow:unset;
   color:black;
-  @include win95-outset()
+  @include win95-outset();
   background: $win95-bg;
 }
 
@@ -1040,7 +1040,7 @@ body.admin {
 
 .button {
   background-color:$win95-bg;
-  @include win95-outset()
+  @include win95-outset();
   border-radius:0px;
   color:black;
   font-weight:bold;
