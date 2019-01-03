@@ -716,7 +716,7 @@ body.admin {
 
 .drawer__tab {
   color:black;
-  @include win95-outset()
+  @include win95-outset();
   padding:5px;
   margin:2px;
   flex: 0 0 auto;
