@@ -13,6 +13,7 @@ module Admin
       @registrations_enabled = Setting.open_registrations
       @recaptcha_enabled     = Setting.recaptcha
       @collapse_long_msg     = Setting.collapse_long_msg
+      @max_toot_chars        = Setting.max_toot_chars
       @deletions_enabled     = Setting.open_deletion
       @invites_enabled       = Setting.min_invite_role == 'user'
       @search_enabled        = Chewy.enabled?
