@@ -13,11 +13,11 @@ module Mastodon
     end
 
     def patch
-      0
+      1
     end
 
     def pre
-      'mutt'
+      'cerberus'
     end
 
     def flags
