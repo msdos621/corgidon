@@ -386,7 +386,7 @@ en:
         desc_html: Automatically collapse long messages in the timeline
         title: Enable collapse
       max_toot_chars:
-        desc_html: Set maximum toot length (requires server restart)
+        desc_html: Set maximum toot length
         title: Max Toot Size
       custom_css:
         desc_html: Modify the look with CSS loaded on every page
