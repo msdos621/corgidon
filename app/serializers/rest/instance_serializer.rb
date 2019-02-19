@@ -39,10 +39,6 @@ class REST::InstanceSerializer < ActiveModel::Serializer
     instance_presenter.thumbnail ? full_asset_url(instance_presenter.thumbnail.file.url) : full_pack_url('media/images/preview.jpg')
   end
 
-  def max_toot_chars
-    StatusLengthValidator::MAX_CHARS
-  end
-
   def stats
     {
       user_count: instance_presenter.user_count,
