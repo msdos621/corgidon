@@ -100,7 +100,6 @@ en:
         setting_display_media_hide_all: Hide all
         setting_display_media_show_all: Show all
         setting_expand_spoilers: Always expand toots marked with content warnings
-        setting_aggregate_reblogs: Group boosts in timelines
         setting_hide_network: Hide your network
         setting_home_dms: Show direct messages in home timeline
         setting_noindex: Opt-out of search engine indexing
