@@ -17,7 +17,7 @@ module Mastodon
     end
 
     def pre
-      'cerberus'
+      'dorkie'
     end
 
     def flags
