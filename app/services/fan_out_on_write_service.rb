@@ -94,7 +94,7 @@ class FanOutOnWriteService < BaseService
   def deliver_to_own_conversation(status)
     AccountConversation.add_status(status.account, status)
 
-    if status.mentions.first.account.user&.home_dms?
+    if status.mentions.count == 1 && status.mentions.includes(:account).first.account.user&.home_dms?
       Rails.logger.debug "Delivering status #{status.id} to home timeline"
       FeedManager.instance.push_to_home(status.mentions.first.account, status)
     end
