@@ -52,6 +52,7 @@ class Settings::PreferencesController < Settings::BaseController
       :setting_theme,
       :setting_hide_network,
       :setting_aggregate_reblogs,
+      :setting_home_dms,
       :setting_show_application,
       :setting_advanced_layout,
       :setting_use_blurhash,
