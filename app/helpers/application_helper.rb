@@ -41,6 +41,10 @@ module ApplicationHelper
     end
   end
 
+  def max_bio_chars
+    Setting.max_bio_chars
+  end
+
   def max_toot_chars
     Setting.max_toot_chars
   end
