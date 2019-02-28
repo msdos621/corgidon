@@ -19,7 +19,8 @@ class InitialStateSerializer < ActiveModel::Serializer
       collapse_long_msg: Setting.collapse_long_msg,
       mascot: instance_presenter.mascot&.file&.url,
       profile_directory: Setting.profile_directory,
-      max_toot_chars: instance_presenter.max_toot_chars
+      max_toot_chars: instance_presenter.max_toot_chars,
+      max_bio_chars: instance_presenter.max_bio_chars
     }
 
     if object.current_account

@@ -22,6 +22,8 @@ class Form::AdminSettings
     :recaptcha=,
     :collapse_long_msg,
     :collapse_long_msg=,
+    :max_bio_chars,
+    :max_bio_chars=,
     :max_toot_chars,
     :max_toot_chars=,
     :open_registrations,

@@ -12,6 +12,7 @@ module Admin
       site_terms
       open_registrations
       recaptcha
+      max_bio_chars
       max_toot_chars
       collapse_long_msg
       closed_registrations_message

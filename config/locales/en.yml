@@ -380,15 +380,12 @@ en:
       bootstrap_timeline_accounts:
         desc_html: Separate multiple usernames by comma. Only local and unlocked accounts will work. Default when empty is all local admins.
         title: Default follows for new users
-      contact_information:
-        email: Business e-mail
-        username: Contact username
       collapse_long_msg:
         desc_html: Automatically collapse long messages in the timeline
         title: Enable collapse
-      max_toot_chars:
-        desc_html: Set maximum toot length
-        title: Max Toot Size
+      contact_information:
+        email: Business e-mail
+        username: Contact username
       custom_css:
         desc_html: Modify the look with CSS loaded on every page
         title: Custom CSS
@@ -398,6 +395,12 @@ en:
       mascot:
         desc_html: Displayed on multiple pages. At least 293×205px recommended. When not set, falls back to default mascot
         title: Mascot image
+      max_bio_chars:
+        desc_html: Set maximum biography length
+        title: Max Biography Size
+      max_toot_chars:
+        desc_html: Set maximum toot length
+        title: Max Toot Size
       peers_api_enabled:
         desc_html: Domain names this server has encountered in the fediverse
         title: Publish list of discovered servers
