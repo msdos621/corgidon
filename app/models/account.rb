@@ -241,6 +241,7 @@ class Account < ApplicationRecord
   def fields_attributes=(attributes)
     fields     = []
     old_fields = self[:fields] || []
+    old_fields = [] if old_fields.is_a?(Hash)
 
     if attributes.is_a?(Hash)
       attributes.each_value do |attr|
@@ -265,6 +266,7 @@ class Account < ApplicationRecord
     return if fields.size >= DEFAULT_FIELDS_SIZE
 
     tmp = self[:fields] || []
+    tmp = [] if tmp.is_a?(Hash)
 
     (DEFAULT_FIELDS_SIZE - tmp.size).times do
       tmp << { name: '', value: '' }
@@ -386,7 +388,7 @@ class Account < ApplicationRecord
       DeliveryFailureTracker.filter(urls)
     end
 
-    def search_for(terms, limit = 10)
+    def search_for(terms, limit = 10, offset = 0)
       textsearch, query = generate_query_for_search(terms)
 
       sql = <<-SQL.squish
@@ -398,15 +400,15 @@ class Account < ApplicationRecord
           AND accounts.suspended = false
           AND accounts.moved_to_account_id IS NULL
         ORDER BY rank DESC
-        LIMIT ?
+        LIMIT ? OFFSET ?
       SQL
 
-      records = find_by_sql([sql, limit])
+      records = find_by_sql([sql, limit, offset])
       ActiveRecord::Associations::Preloader.new.preload(records, :account_stat)
       records
     end
 
-    def advanced_search_for(terms, account, limit = 10, following = false)
+    def advanced_search_for(terms, account, limit = 10, following = false, offset = 0)
       textsearch, query = generate_query_for_search(terms)
 
       if following
@@ -427,10 +429,10 @@ class Account < ApplicationRecord
             AND accounts.moved_to_account_id IS NULL
           GROUP BY accounts.id
           ORDER BY rank DESC
-          LIMIT ?
+          LIMIT ? OFFSET ?
         SQL
 
-        records = find_by_sql([sql, account.id, account.id, account.id, limit])
+        records = find_by_sql([sql, account.id, account.id, account.id, limit, offset])
       else
         sql = <<-SQL.squish
           SELECT
@@ -443,10 +445,10 @@ class Account < ApplicationRecord
             AND accounts.moved_to_account_id IS NULL
           GROUP BY accounts.id
           ORDER BY rank DESC
-          LIMIT ?
+          LIMIT ? OFFSET ?
         SQL
 
-        records = find_by_sql([sql, account.id, account.id, limit])
+        records = find_by_sql([sql, account.id, account.id, limit, offset])
       end
 
       ActiveRecord::Associations::Preloader.new.preload(records, :account_stat)
