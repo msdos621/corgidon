@@ -17,7 +17,7 @@ module Mastodon
     end
 
     def pre
-      'dorkie'
+      'shiba'
     end
 
     def flags
