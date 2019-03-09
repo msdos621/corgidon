@@ -88,10 +88,7 @@ const startWorker = (workerId) => {
       database: process.env.DB_NAME || 'mastodon_development',
       host:     process.env.DB_HOST || pg.defaults.host,
       port:     process.env.DB_PORT || pg.defaults.port,
-      max:      10,
-      ssl: {
-        sslmode: process.env.DB_SSLMODE || 'prefer',
-      },
+      max:      10
     },
 
     production: {
@@ -100,10 +97,7 @@ const startWorker = (workerId) => {
       database: process.env.DB_NAME || 'mastodon_production',
       host:     process.env.DB_HOST || 'localhost',
       port:     process.env.DB_PORT || 5432,
-      max:      10,
-      ssl: {
-        sslmode: process.env.DB_SSLMODE || 'prefer',
-      },
+      max:      10
     },
   };
 
