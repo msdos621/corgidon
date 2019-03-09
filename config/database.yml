@@ -3,7 +3,7 @@ default: &default
   pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
   timeout: 5000
   encoding: unicode
-  sslmode: <%= ENV['DB_SSLMODE'] || "prefer" %>
+#  sslmode: <%= ENV['DB_SSLMODE'] || "prefer" %>
 
 development:
   <<: *default
