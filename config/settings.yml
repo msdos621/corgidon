@@ -13,6 +13,7 @@ defaults: &defaults
   recaptcha: false
   max_bio_chars: 160
   max_toot_chars: 500
+  registrations_mode: 'open'
   profile_directory: true
   closed_registrations_message: ''
   open_deletion: true

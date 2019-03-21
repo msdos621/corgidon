@@ -10,11 +10,11 @@ module Admin
       site_description
       site_extended_description
       site_terms
-      open_registrations
       recaptcha
       max_bio_chars
       max_toot_chars
       collapse_long_msg
+      registrations_mode
       closed_registrations_message
       open_deletion
       timeline_preview
@@ -34,7 +34,6 @@ module Admin
     ).freeze
 
     BOOLEAN_SETTINGS = %w(
-      open_registrations
       collapse_long_msg
       recaptcha
       open_deletion
