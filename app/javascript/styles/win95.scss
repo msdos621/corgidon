@@ -145,13 +145,12 @@ body.admin {
 .drawer:after {
     display:block;
     content: " ";
-
     position:absolute;
     bottom:15px;
     left:15px;
     width:132px;
     height:117px;
-    background-image:url("../images/clippy_wave.gif"), url("../images/clippy_frame.png");
+    background-image: url("../images/clippy-apng.png"), url("../images/clippy_frame.png");
     background-repeat:no-repeat;
     background-position: 4px 20px, 0px 0px;
     z-index:0;
