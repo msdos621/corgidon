@@ -2,10 +2,16 @@
 
 class ActivityPub::Activity::Announce < ActivityPub::Activity
   def perform
+    if delete_arrived_first?(@json['id']) || !related_to_local_activity?
+      Rails.logger.info("Rejected Announce activity because delete_arrived_first? #{delete_arrived_first?(@json['id'])} or !related_to_local #{!related_to_local_activity?}" )
+    end
     return reject_payload! if delete_arrived_first?(@json['id']) || !related_to_local_activity?
 
     original_status = status_from_object
 
+    if original_status.nil? || !announceable?(original_status)
+      Rails.logger.info("Rejected Announce activity because original_status.nil? #{original_status.nil?} or !!announcable #{!announceable?(original_status)}" )
+    end
     return reject_payload! if original_status.nil? || !announceable?(original_status)
 
     status = Status.find_by(account: @account, reblog: original_status)
