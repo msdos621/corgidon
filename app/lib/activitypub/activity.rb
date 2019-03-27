@@ -79,10 +79,12 @@ class ActivityPub::Activity
   end
 
   def supported_object_type?
+    Rails.logger.info("supported_object_type? #{@object['type']} #{equals_or_includes_any?(@object['type'], SUPPORTED_TYPES)}")
     equals_or_includes_any?(@object['type'], SUPPORTED_TYPES)
   end
 
   def converted_object_type?
+    Rails.logger.info("converted_object_type? #{@object['type']} #{equals_or_includes_any?(@object['type'], CONVERTED_TYPES)}")
     equals_or_includes_any?(@object['type'], CONVERTED_TYPES)
   end
 
