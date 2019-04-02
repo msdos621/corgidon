@@ -29,6 +29,9 @@ class Form::AdminSettings
     max_toot_chars
     recaptcha
     collapse_long_msg
+    thumbnail
+    hero
+    mascot
   ).freeze
 
   BOOLEAN_KEYS = %i(
@@ -70,7 +73,7 @@ class Form::AdminSettings
     KEYS.each do |key|
       value = instance_variable_get("@#{key}")
 
-      if UPLOAD_KEYS.include?(key)
+      if UPLOAD_KEYS.include?(key) && !value.nil?
         upload = SiteUpload.where(var: key).first_or_initialize(var: key)
         upload.update(file: value)
       else

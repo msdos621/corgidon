@@ -9,19 +9,19 @@ module Mastodon
     end
 
     def minor
-      7
+      8
     end
 
     def patch
-      4
+      0
     end
 
     def pre
-      'shiba'
+      'corgi'
     end
 
     def flags
-      ''
+      'rc1'
     end
 
     def to_a
