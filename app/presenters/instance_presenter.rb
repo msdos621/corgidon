@@ -19,7 +19,7 @@ class InstancePresenter
   end
 
   def contact_account
-    Account.find_local(Setting.site_contact_username.gsub(/\A@/, ''))
+    Account.find_local(Setting.site_contact_username.strip.gsub(/\A@/, ''))
   end
 
   def user_count
