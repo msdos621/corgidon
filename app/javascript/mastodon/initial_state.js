@@ -16,9 +16,12 @@ export const collapseLongMsg = getMeta('collapse_long_msg');
 export const maxBioChars = getMeta('max_bio_chars');
 export const maxChars = getMeta('max_toot_chars');
 export const invitesEnabled = getMeta('invites_enabled');
+export const repository = getMeta('repository');
+export const source_url = getMeta('source_url');
 export const version = getMeta('version');
 export const mascot = getMeta('mascot');
 export const profile_directory = getMeta('profile_directory');
 export const isStaff = getMeta('is_staff');
+export const forceSingleColumn = !getMeta('advanced_layout');
 
 export default initialState;

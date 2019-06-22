@@ -36,6 +36,7 @@ defaults: &defaults
   theme: 'default'
   aggregate_reblogs: true
   home_dms: false
+  advanced_layout: false
   notification_emails:
     follow: false
     reblog: false
