@@ -16,6 +16,7 @@ module Mastodon
     option :overwrite, type: :boolean
     option :unlisted, type: :boolean
     option :category
+
     desc 'import PATH', 'Import emoji from a TAR GZIP archive at PATH'
     long_desc <<-LONG_DESC
       Imports custom emoji from a TAR GZIP archive specified by PATH.

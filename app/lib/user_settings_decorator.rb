@@ -122,6 +122,10 @@ class UserSettingsDecorator
     boolean_cast_setting 'setting_home_dms'
   end
 
+  def advanced_layout_preference
+    boolean_cast_setting 'setting_advanced_layout'
+  end
+
   def boolean_cast_setting(key)
     ActiveModel::Type::Boolean.new.cast(settings[key])
   end
