@@ -23,7 +23,11 @@ class InstancePresenter
   end
 
   def user_count
-    Rails.cache.fetch('user_count') { User.confirmed.joins(:account).merge(Account.without_suspended).count }
+    if ENV['LIAR']
+      2_000_000 + Rails.cache.fetch('user_count') { User.confirmed.joins(:account).merge(Account.without_suspended).count }
+    else
+      Rails.cache.fetch('user_count') { User.confirmed.joins(:account).merge(Account.without_suspended).count }
+    end
   end
 
   def active_user_count
@@ -31,7 +35,11 @@ class InstancePresenter
   end
 
   def status_count
-    Rails.cache.fetch('local_status_count') { Account.local.joins(:account_stat).sum('account_stats.statuses_count') }.to_i
+    if ENV['LIAR']
+      100_000_000 + Rails.cache.fetch('local_status_count') { Account.local.joins(:account_stat).sum('account_stats.statuses_count') }.to_i
+    else
+      Rails.cache.fetch('local_status_count') { Account.local.joins(:account_stat).sum('account_stats.statuses_count') }.to_i
+    end
   end
 
   def domain_count
