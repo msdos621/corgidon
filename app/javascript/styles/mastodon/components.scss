@@ -2510,21 +2510,7 @@ a.account__display-name {
   &:focus {
     outline: 0;
   }
-
-  &--transparent {
-    background: transparent;
-    color: $ui-secondary-color;
-
-  &:hover,
-  &:focus,
-  &:active {
-    background: lighten($ui-base-color, 11%);
-  }
-
-  &:focus {
-    outline: 0;
-  }
-
+  
   &--transparent {
     background: transparent;
     color: $ui-secondary-color;
