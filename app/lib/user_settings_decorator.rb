@@ -109,11 +109,7 @@ class UserSettingsDecorator
   def aggregate_reblogs_preference
     boolean_cast_setting 'setting_aggregate_reblogs'
   end
-
-  def advanced_layout_preference
-    boolean_cast_setting 'setting_advanced_layout'
-  end
-
+  
   def use_blurhash_preference
     boolean_cast_setting 'setting_use_blurhash'
   end

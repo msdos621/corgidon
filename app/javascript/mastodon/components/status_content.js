@@ -80,7 +80,7 @@ export default class StatusContent extends React.PureComponent {
   }
 
   onMentionClick = (mention, e) => {
-    if (this.context.router && e.button === 0  && !(e.ctrlKey || e.metaKey)) {
+    if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       this.context.router.history.push(`/accounts/${mention.get('id')}`);
     }
@@ -89,7 +89,7 @@ export default class StatusContent extends React.PureComponent {
   onHashtagClick = (hashtag, e) => {
     hashtag = hashtag.replace(/^#/, '').toLowerCase();
 
-    if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey) {
+    if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       this.context.router.history.push(`/timelines/tag/${hashtag}`);
     }
