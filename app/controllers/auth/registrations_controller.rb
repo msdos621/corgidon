@@ -72,10 +72,6 @@ class Auth::RegistrationsController < Devise::RegistrationsController
     Setting.registrations_mode != 'none' || @invite&.valid_for_use?
   end
 
-  def recaptcha_enabled?
-    Setting.recaptcha
-  end
-
   def invite_code
     if params[:user]
       params[:user][:invite_code]
@@ -85,17 +81,6 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   end
 
   private
-
-  def check_captcha
-    return unless recaptcha_enabled?
-
-    unless verify_recaptcha
-      self.resource = resource_class.new sign_up_params
-      resource.validate # Look for any other validation errors besides Recaptcha
-      set_minimum_password_length
-      render('auth/registrations/new')
-    end
-  end
 
   def set_instance_presenter
     @instance_presenter = InstancePresenter.new
