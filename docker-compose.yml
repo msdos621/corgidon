@@ -35,7 +35,7 @@ services:
 
   web:
     build: .
-    image: usbsnowcrash/mastodon
+    image: msdos621/mastodon
     restart: always
     env_file: .env.production
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -56,7 +56,7 @@ services:
 
   streaming:
     build: .
-    image: usbsnowcrash/mastodon
+    image: msdos621/mastodon
     restart: always
     env_file: .env.production
     command: yarn start
@@ -75,7 +75,7 @@ services:
 
   sidekiq:
     build: .
-    image: usbsnowcrash/mastodon
+    image: msdos621/mastodon
     restart: always
     env_file: .env.production
     command: bundle exec sidekiq
@@ -90,15 +90,17 @@ services:
     volumes:
       - ./public/system:/mastodon/public/system
 
+## Uncomment to enable federation with tor instances along with adding the following ENV variables
+## http_proxy=http://privoxy:8118
+## ALLOW_ACCESS_TO_HIDDEN_SERVICE=true
   tor:
-    build: https://github.com/usbsnowcrash/docker-tor.git
+    image: sirboops/tor
     networks:
       - external_network
       - internal_network
 
   privoxy:
-    build: https://github.com/usbsnowcrash/docker-privoxy.git
-    command: /opt/sbin/privoxy --no-daemon --user privoxy.privoxy /opt/config
+    image: sirboops/privoxy
     volumes:
       - ./priv-config:/opt/config
     networks:
