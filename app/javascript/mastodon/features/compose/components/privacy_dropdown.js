@@ -29,7 +29,7 @@ class PrivacyDropdownMenu extends React.PureComponent {
     style: PropTypes.object,
     items: PropTypes.array.isRequired,
     value: PropTypes.string.isRequired,
-    placement: PropTypes.string,
+    placement: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
   };
