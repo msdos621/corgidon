@@ -59,6 +59,10 @@ class REST::InstanceSerializer < ActiveModel::Serializer
     Setting.registrations_mode != 'none' && !Rails.configuration.x.single_user_mode
   end
 
+  def max_toot_chars
+    Setting.max_toot_chars
+  end
+
   def approval_required
     Setting.registrations_mode == 'approved'
   end
