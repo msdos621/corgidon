@@ -12,6 +12,7 @@ defaults: &defaults
   registrations_mode: 'open'
   max_bio_chars: 160
   max_toot_chars: 500
+  nodeinfo_show_blocks: true
   profile_directory: true
   closed_registrations_message: ''
   nodeinfo_show_blocks: true

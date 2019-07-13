@@ -27,6 +27,7 @@ class Form::AdminSettings
     preview_sensitive_media
     custom_css
     profile_directory
+    nodeinfo_show_blocks
     thumbnail
     hero
     mascot

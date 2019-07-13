@@ -412,8 +412,8 @@ en:
         desc_html: Set maximum toot length
         title: Max Toot Size
       nodeinfo_show_blocks:
-	        desc_html: List instance suspends, silence and rejects in the public nodeinfo API
-	        title: Enable showing blocks in nodeinfo API
+        desc_html: List instance suspends, silence and rejects in the public nodeinfo API
+        title: Enable showing blocks in nodeinfo API
       peers_api_enabled:
         desc_html: Domain names this server has encountered in the fediverse
         title: Publish list of discovered servers
