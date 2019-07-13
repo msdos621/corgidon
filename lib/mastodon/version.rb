@@ -17,11 +17,11 @@ module Mastodon
     end
 
     def pre
-      'pug'
+      'rc1'
     end
 
     def flags
-      ''
+      '+corgi'
     end
 
     def to_a
