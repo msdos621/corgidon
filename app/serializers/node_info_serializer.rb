@@ -4,29 +4,30 @@ class NodeInfoSerializer < ActiveModel::Serializer
   include RoutingHelper
 
   attributes :version, :usage, :software, :services,
-             :protocols, :openRegistrations, :metaData
+             :protocols, :openRegistrations, :metadata
 
   def version
-    '2.0'
+    object.adapter.serializer.instance_options[:version]
   end
 
   def usage
     {
       users: {
         total: instance_presenter.user_count,
-        activeHalfyear: instance_presenter.active_count(timespan: Time.zone.now - 6.months..Time.zone.now),
-        activeMonth: instance_presenter.active_count,
+        activeHalfyear: instance_presenter.active_user_count_month,
+        activeMonth: instance_presenter.active_user_count,
       },
       localPosts: instance_presenter.status_count,
     }
   end
 
   def software
-    {
+    sw = {
       version: Mastodon::Version.to_s,
-      name: 'mastodon',
-      repository: Mastodon::Version.source_base_url,
+      name: 'mastodon'
     }
+    sw[:repository] = Mastodon::Version.source_base_url if version == '2.1'
+    sw
   end
 
   def services
@@ -41,11 +42,11 @@ class NodeInfoSerializer < ActiveModel::Serializer
   end
 
   def openRegistrations
-    Setting.open_registrations
+    Setting.registrations_mode == 'open'
   end
 
-  def metaData
-    {
+  def metadata
+    md = {
       nodeName: instance_presenter.site_title,
       nodeDescription: instance_presenter.site_description,
       nodeTerms: instance_presenter.site_terms,
@@ -53,8 +54,9 @@ class NodeInfoSerializer < ActiveModel::Serializer
       domain_count: instance_presenter.domain_count,
       features: features,
       invitesEnabled: Setting.min_invite_role != 'admin',
-      federation: federation,
     }
+    md[:federation] = federation if Setting.nodeinfo_show_blocks
+    md
   end
 
   def features

@@ -31,6 +31,10 @@ module ApplicationHelper
     Setting.registrations_mode == 'none'
   end
 
+  def nodeinfo_show_blocks
+    Setting.nodeinfo_show_blocks
+  end
+
   def available_sign_up_path
     if closed_registrations?
       return ENV['CUSTOM_CLOSED_JOIN_URL'] if ENV['CUSTOM_CLOSED_JOIN_URL'].present?
