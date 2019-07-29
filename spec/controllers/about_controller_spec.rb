@@ -17,6 +17,16 @@ RSpec.describe AboutController, type: :controller do
     end
   end
 
+  describe 'GET #moderation' do
+    before do
+      get :moderation
+    end
+
+    it 'returns http success' do
+      expect(response).to have_http_status(200)
+    end
+  end
+
   describe 'GET #more' do
     before do
       get :more
