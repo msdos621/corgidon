@@ -12,7 +12,7 @@ class AboutController < ApplicationController
   def show; end
 
   def moderation
-    @action_logs = Admin::ActionLog.page(params[:page])
+    @redacted_action_logs = Admin::ActionLog.page(params[:page])
   end
 
   def more
