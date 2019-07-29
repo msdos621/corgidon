@@ -51,6 +51,12 @@ function main() {
     }
   };
 
+  const getEmojiAnimationHandler = (swapTo) => {
+    return ({ target }) => {
+      target.src = target.getAttribute(swapTo);
+    };
+  };
+
   ready(() => {
     const locale = document.documentElement.lang;
 
@@ -115,6 +121,9 @@ function main() {
     if (parallaxComponents.length > 0 ) {
       new Rellax('.parallax', { speed: -1 });
     }
+
+    delegate(document, '.custom-emoji', 'mouseover', getEmojiAnimationHandler('data-original'));
+    delegate(document, '.custom-emoji', 'mouseout', getEmojiAnimationHandler('data-static'));
 
     if (document.body.classList.contains('with-modals')) {
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
@@ -195,7 +204,7 @@ function main() {
     return ({ target }) => {
       const swapSrc = target.getAttribute(swapTo);
       //only change the img source if autoplay is off and the image src is actually different
-      if(target.getAttribute('data-autoplay') === 'false' && target.src !== swapSrc) {
+      if(target.getAttribute('data-autoplay') !== 'true' && target.src !== swapSrc) {
         target.src = swapSrc;
       }
     };

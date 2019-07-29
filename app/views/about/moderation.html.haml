@@ -1,0 +1,9 @@
+- content_for :page_title do
+  = t('admin.action_logs.title')
+
+- @redacted_action_logs.each do |log|
+  = render partial: 'redacted_action_log', locals: {action_log: log}
+
+
+
+= paginate @redacted_action_logs

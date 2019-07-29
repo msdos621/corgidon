@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 module Admin::ActionLogsHelper
+  def redacted_log_target(log)
+    if log.target
+      redacted_linkable_log_target(log.target)
+    else
+      redacted_log_target_from_history(log.target_type, log.recorded_changes)
+    end
+  end
+
   def log_target(log)
     if log.target
       linkable_log_target(log.target)
@@ -92,6 +100,36 @@ module Admin::ActionLogsHelper
       link_to record.account.acct, ActivityPub::TagManager.instance.url_for(record)
     when 'AccountWarning'
       link_to record.target_account.acct, admin_account_path(record.target_account_id)
+    end
+  end
+
+  def redacted_linkable_log_target(record)
+    case record.class.name
+    when 'Account'
+      '[redacted]'
+    when 'User'
+      'User'
+    when 'CustomEmoji'
+      record.shortcode
+    when 'Report'
+      'Report'
+    when 'DomainBlock', 'EmailDomainBlock'
+      link_to record.domain, "https://#{record.domain}"
+    when 'Status'
+      'Status'
+    when 'AccountWarning'
+      '[redacted]'
+    end
+  end
+
+  def redacted_log_target_from_history(type, attributes)
+    case type
+    when 'CustomEmoji'
+      attributes['shortcode']
+    when 'DomainBlock', 'EmailDomainBlock'
+      link_to attributes['domain'], "https://#{attributes['domain']}"
+    when 'Status'
+      '[redacted status]'
     end
   end
 

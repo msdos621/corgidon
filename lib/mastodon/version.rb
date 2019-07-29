@@ -16,20 +16,20 @@ module Mastodon
       0
     end
 
-    def pre
-      'rc1'
-    end
-
     def flags
       '+corgi'
     end
 
+    def suffix
+      'rc2'
+    end
+
     def to_a
-      [major, minor, patch, pre].compact
+      [major, minor, patch].compact
     end
 
     def to_s
-      [to_a.join('.'), flags].join
+      [to_a.join('.'), flags, suffix].join
     end
 
     def repository

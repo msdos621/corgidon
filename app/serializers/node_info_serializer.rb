@@ -7,7 +7,7 @@ class NodeInfoSerializer < ActiveModel::Serializer
              :protocols, :openRegistrations, :metadata
 
   def version
-    object.adapter.serializer.instance_options[:version]
+    self.instance_options[:version]
   end
 
   def usage

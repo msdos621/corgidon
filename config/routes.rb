@@ -30,9 +30,16 @@ Rails.application.routes.draw do
   get 'intent', to: 'intents#show'
   get 'custom.css', to: 'custom_css#show', as: :custom_css
 
+  resource :instance_actor, path: 'actor', only: [:show] do
+    resource :inbox, only: [:create], module: :activitypub
+  end
+
   devise_scope :user do
     get '/invite/:invite_code', to: 'auth/registrations#new', as: :public_invite
-    match '/auth/finish_signup' => 'auth/confirmations#finish_signup', via: [:get, :patch], as: :finish_signup
+
+    namespace :auth do
+      resource :setup, only: [:show, :update], controller: :setup
+    end
   end
 
   devise_for :users, path: 'auth', controllers: {
@@ -418,9 +425,10 @@ Rails.application.routes.draw do
 
   get '/web/(*any)', to: 'home#index', as: :web
 
-  get '/about',      to: 'about#show'
-  get '/about/more', to: 'about#more'
-  get '/terms',      to: 'about#terms'
+  get '/about',             to: 'about#show'
+  get '/about/moderation',  to: 'about#moderation'
+  get '/about/more',        to: 'about#more'
+  get '/terms',             to: 'about#terms'
 
   root 'home#index'
 

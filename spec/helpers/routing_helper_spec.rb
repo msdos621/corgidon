@@ -18,9 +18,9 @@ RSpec.describe RoutingHelper, type: :helper do
       end
 
       it 'without host' do
-        url = helper.full_asset_url('/avatars/original/missing.png', skip_pipeline: true)
+        url = helper.full_asset_url('/avatars/original/missing_corgi.png', skip_pipeline: true)
 
-        expect(url).to eq 'http://test.host/avatars/original/missing.png'
+        expect(url).to eq 'http://test.host/avatars/original/missing_corgi.png'
       end
     end
 
