@@ -7,11 +7,11 @@ module WellKnown
     before_action { response.headers['Vary'] = 'Accept' }
 
     def index
-      render json: ActiveModelSerializers::SerializableResource.new({}, serializer: NodeDiscoverySerializer)
+      render json: {} ,serializer: NodeDiscoverySerializer, root:''
     end
 
     def show
-      render json: ActiveModelSerializers::SerializableResource.new({}, serializer: NodeInfoSerializer, version: "2.#{ params[:format] }")
+      render json: {} , serializer: NodeInfoSerializer, version: "2.#{ params[:format] }", root: ''
     end
   end
 end
