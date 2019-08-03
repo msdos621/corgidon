@@ -7,6 +7,7 @@
 #  name       :string           default(""), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  score      :integer
 #
 
 class Tag < ApplicationRecord
@@ -65,7 +66,7 @@ class Tag < ApplicationRecord
 
   class << self
     def find_or_create_by_names(name_or_names)
-      Array(name_or_names).map(&method(:normalize)).uniq.map do |normalized_name|
+      Array(name_or_names).map(&method(:normalize)).uniq { |str| str.mb_chars.downcase.to_s }.map do |normalized_name|
         tag = matching_name(normalized_name).first || create(name: normalized_name)
 
         yield tag if block_given?
@@ -75,10 +76,12 @@ class Tag < ApplicationRecord
     end
 
     def search_for(term, limit = 5, offset = 0)
-      pattern = sanitize_sql_like(normalize(term.strip)) + '%'
+      normalized_term = normalize(term.strip).mb_chars.downcase.to_s
+      pattern         = sanitize_sql_like(normalized_term) + '%'
 
-      Tag.where(arel_table[:name].lower.matches(pattern.downcase))
-         .order(:name)
+      Tag.where(arel_table[:name].lower.matches(pattern))
+         .where(arel_table[:score].gt(0).or(arel_table[:name].lower.eq(normalized_term)))
+         .order(Arel.sql('length(name) ASC, score DESC, name ASC'))
          .limit(limit)
          .offset(offset)
     end
@@ -92,7 +95,7 @@ class Tag < ApplicationRecord
     end
 
     def matching_name(name_or_names)
-      names = Array(name_or_names).map { |name| normalize(name).downcase }
+      names = Array(name_or_names).map { |name| normalize(name).mb_chars.downcase.to_s }
 
       if names.size == 1
         where(arel_table[:name].lower.eq(names.first))
@@ -104,7 +107,7 @@ class Tag < ApplicationRecord
     private
 
     def normalize(str)
-      str.gsub(/\A#/, '').mb_chars.to_s
+      str.gsub(/\A#/, '')
     end
   end
 
