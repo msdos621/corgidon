@@ -8,7 +8,7 @@ class BatchedRemoveStatusService < BaseService
   # Dispatch Salmon deletes, unique per domain, of the deleted statuses, but only local ones
   # Remove statuses from home feeds
   # Push delete events to streaming API for home feeds and public feeds
-  # @param [Status] statuses A preferably batched array of statuses
+  # @param [Enumerable<Status>] statuses A preferably batched array of statuses
   # @param [Hash] options
   # @option [Boolean] :skip_side_effects
   def call(statuses, **options)
@@ -80,8 +80,8 @@ class BatchedRemoveStatusService < BaseService
       end
 
       @tags[status.id].each do |hashtag|
-        redis.publish("timeline:hashtag:#{hashtag}", payload)
-        redis.publish("timeline:hashtag:#{hashtag}:local", payload) if status.local?
+        redis.publish("timeline:hashtag:#{hashtag.mb_chars.downcase}", payload)
+        redis.publish("timeline:hashtag:#{hashtag.mb_chars.downcase}:local", payload) if status.local?
       end
     end
   end
