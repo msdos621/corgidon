@@ -12,6 +12,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       access_token: object.token,
       locale: I18n.locale,
       domain: Rails.configuration.x.local_domain,
+      title: instance_presenter.site_title,
       admin: object.admin&.id&.to_s,
       search_enabled: Chewy.enabled?,
       repository: Mastodon::Version.repository,
@@ -22,7 +23,8 @@ class InitialStateSerializer < ActiveModel::Serializer
       profile_directory: Setting.profile_directory,
       nodeinfo_show_blocks: Setting.nodeinfo_show_blocks,
       max_toot_chars: instance_presenter.max_toot_chars,
-      max_bio_chars: instance_presenter.max_bio_chars
+      max_bio_chars: instance_presenter.max_bio_chars,
+      trends: Setting.trends,
     }
 
     if object.current_account
@@ -38,6 +40,12 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:use_blurhash]      = object.current_account.user.setting_use_blurhash
       store[:use_pending_items] = object.current_account.user.setting_use_pending_items
       store[:is_staff]          = object.current_account.user.staff?
+      store[:trends]            = Setting.trends && object.current_account.user.setting_trends
+    else
+      store[:auto_play_gif] = Setting.auto_play_gif
+      store[:display_media] = Setting.display_media
+      store[:reduce_motion] = Setting.reduce_motion
+      store[:use_blurhash]  = Setting.use_blurhash
     end
 
     store
