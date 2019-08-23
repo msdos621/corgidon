@@ -20,18 +20,18 @@ services:
       test: ["CMD", "redis-cli", "ping"]
     volumes:
       - ./redis:/data
-  es:
-    restart: always
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.1.3
-    environment:
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    networks:
-      - external_network
-      - internal_network
-    healthcheck:
-      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
-    volumes:
-      - ./elasticsearch:/usr/share/elasticsearch/data
+##   es:
+##    restart: always
+##    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.1.3
+##    environment:
+##      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+##    networks:
+##      - external_network
+##      - internal_network
+##    healthcheck:
+##      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
+##    volumes:
+##      - ./elasticsearch:/usr/share/elasticsearch/data
 
   web:
     build: .
