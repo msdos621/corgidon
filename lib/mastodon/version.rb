@@ -21,7 +21,7 @@ module Mastodon
     end
 
     def suffix
-      'rc2'
+      'rc3'
     end
 
     def to_a
@@ -29,7 +29,7 @@ module Mastodon
     end
 
     def to_s
-      [to_a.join('.'), flags, suffix].join
+      [to_a.join('.'), suffix, flags].join
     end
 
     def repository
