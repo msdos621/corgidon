@@ -16,6 +16,7 @@ import { expandNotifications } from '../../actions/notifications';
 import { fetchFilters } from '../../actions/filters';
 import { clearHeight } from '../../actions/height_cache';
 import { focusApp, unfocusApp } from 'mastodon/actions/app';
+import { submitMarkers } from 'mastodon/actions/markers';
 import { WrappedSwitch, WrappedRoute } from './util/react_router_helpers';
 import UploadArea from './components/upload_area';
 import ColumnsAreaContainer from './containers/columns_area_container';
@@ -47,6 +48,7 @@ import {
   PinnedStatuses,
   Lists,
   Search,
+  Directory,
 } from './util/async-components';
 import { me, forceSingleColumn } from '../../initial_state';
 import { previewState as previewMediaState } from './components/media_modal';
@@ -188,6 +190,7 @@ class SwitchingColumnsArea extends React.PureComponent {
           <WrappedRoute path='/pinned' component={PinnedStatuses} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
 
           <WrappedRoute path='/search' component={Search} content={children} />
+          <WrappedRoute path='/directory' component={Directory} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
 
           <WrappedRoute path='/statuses/new' component={Compose} content={children} />
           <WrappedRoute path='/statuses/:statusId' exact component={Status} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
@@ -239,7 +242,9 @@ class UI extends React.PureComponent {
   };
 
   handleBeforeUnload = e => {
-    const { intl, isComposing, hasComposingText, hasMediaAttachments } = this.props;
+    const { intl, dispatch, isComposing, hasComposingText, hasMediaAttachments } = this.props;
+
+    dispatch(submitMarkers());
 
     if (isComposing && (hasComposingText || hasMediaAttachments)) {
       // Setting returnValue to any string causes confirmation dialog.
