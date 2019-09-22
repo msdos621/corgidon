@@ -59,8 +59,14 @@ class REST::InstanceSerializer < ActiveModel::Serializer
     Setting.registrations_mode != 'none' && !Rails.configuration.x.single_user_mode
   end
 
+  def max_bio_chars
+    # tootdon and potentially others need this to json serialize as an int
+    Setting.max_bio_chars.to_i
+  end
+
   def max_toot_chars
-    Setting.max_toot_chars
+    # tootdon and potentially others need this to json serialize as an int
+    Setting.max_toot_chars.to_i
   end
 
   def approval_required
