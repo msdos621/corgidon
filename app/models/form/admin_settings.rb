@@ -35,6 +35,7 @@ class Form::AdminSettings
     trends
     show_domain_blocks
     show_domain_blocks_rationale
+    noindex
   ).freeze
 
   BOOLEAN_KEYS = %i(
@@ -49,6 +50,7 @@ class Form::AdminSettings
     nodeinfo_show_blocks
     spam_check_enabled
     trends
+    noindex
   ).freeze
 
   UPLOAD_KEYS = %i(

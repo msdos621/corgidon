@@ -5,7 +5,7 @@ ruby '>= 2.4.0', '< 2.7.0'
 
 gem 'pkg-config', '~> 1.3'
 
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 4.2'
 gem 'rails', '~> 5.2.3'
 gem 'thor', '~> 0.20'
 
@@ -44,7 +44,7 @@ gem 'omniauth-saml', '~> 1.10'
 gem 'omniauth', '~> 1.9'
 
 gem 'discard', '~> 1.1'
-gem 'doorkeeper', '~> 5.1'
+gem 'doorkeeper', '~> 5.2'
 gem 'fast_blank', '~> 1.0'
 gem 'fastimage'
 gem 'goldfinger', '~> 2.1'
@@ -113,9 +113,9 @@ group :production, :test do
 end
 
 group :test do
-  gem 'capybara', '~> 3.28'
+  gem 'capybara', '~> 3.29'
   gem 'climate_control', '~> 0.2'
-  gem 'faker', '~> 2.2'
+  gem 'faker', '~> 2.4'
   gem 'microformats', '~> 4.1'
   gem 'rails-controller-testing', '~> 1.0'
   gem 'rspec-sidekiq', '~> 3.0'
