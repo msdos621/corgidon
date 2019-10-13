@@ -21,7 +21,7 @@ module Mastodon
     end
 
     def suffix
-      'rc5'
+      ''
     end
 
     def to_a

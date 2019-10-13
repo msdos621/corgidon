@@ -30,8 +30,8 @@ class InstancePresenter
     end
   end
 
-  def active_user_count
-    Rails.cache.fetch('active_user_count') { Redis.current.pfcount(*(0..3).map { |i| "activity:logins:#{i.weeks.ago.utc.to_date.cweek}" }) }
+  def active_user_count(weeks = 4)
+    Rails.cache.fetch("active_user_count/#{weeks}") { Redis.current.pfcount(*(0...weeks).map { |i| "activity:logins:#{i.weeks.ago.utc.to_date.cweek}" }) }
   end
 
   def active_user_count_month(months: 6)
