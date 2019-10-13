@@ -33,6 +33,7 @@ class Form::AdminSettings
     mascot
     spam_check_enabled
     trends
+    trendable_by_default
     show_domain_blocks
     show_domain_blocks_rationale
     noindex
@@ -50,6 +51,7 @@ class Form::AdminSettings
     nodeinfo_show_blocks
     spam_check_enabled
     trends
+    trendable_by_default
     noindex
   ).freeze
 

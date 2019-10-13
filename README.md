@@ -37,4 +37,4 @@ CorgiDon comes bundled with some themes from other instances as well as some uni
 
 # Things I tried and later removed
 - Recaptcha option for loing (removed since upstream mastodon introduced ability to review sign ups)
-- Collopsable toots (replaced my implimentation with the "Read more>> feature from upstream")
+- Collapsable toots (replaced my implimentation with the "Read more>> feature from upstream")
