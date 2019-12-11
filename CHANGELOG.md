@@ -3,24 +3,52 @@ Changelog
 
 All notable changes to this project will be documented in this file.
 
-## [3.0.1] - 2019-10-10
+## [3.1.0+corgi] - 2019-12-11
 ### Added
 
 - Add `tootctl media usage` command ([Gargron](https://github.com/tootsuite/mastodon/pull/12115))
 - Add admin setting to auto-approve trending hashtags ([Gargron](https://github.com/tootsuite/mastodon/pull/12122), [Gargron](https://github.com/tootsuite/mastodon/pull/12130))
+- Remove oops.png and replace it with a picture of a corgi [msdos621](https://github.com/msdos621/corgidon/pull/19/commits/0e5c472482cf66a6d72b7ca2a63978bc885f7356)
+- Add `S3_OVERRIDE_PATH_STYLE` environment variable [Gargron](https://github.com/tootsuite/mastodon/pull/12594)
+- Add `tootctl media remove-orphans` [Gargron](https://github.com/tootsuite/mastodon/pull/12568)
+- Return `discoverable` via REST API 
+- add S3_OPEN_TIMEOUT environment variable 
+- Add support for submitting media description with ctrl+enter 
+- Add `tootctl media lookup` command 
+- Add abilityto add oneself to lists 
+- Add cache for OEmbed endpoints to avoid extra HTTP requests
+- dd relationship-based options to status dropdowns 
+- Add hotkey for opening media files (tootsuite#12498)
+- Add ability to filter reports by target account domain (tootsuite#12154)
+- Add follow_request notification type (tootsuite#12198)
+- ✨ Add an LDAP Mail attribute config (tootsuite#12053)
 
 ### Changed
 
 - Change `tootctl media refresh` to skip already downloaded attachments ([Gargron](https://github.com/tootsuite/mastodon/pull/12118))
+- Merged my version of nodeinfo with the gargron version.  We bascially match now except I show some additional metadata
+- Change stale bot to only touch pull requests over 120 days old 
+- Change message of public timeline for local only 
+- Improve notifications page (tootsuite#12497)
+- Link to reports targetting instance in admin view (tootsuite#12513)
 
 ### Removed
 
 - Remove auto-silence behaviour from spam check ([Gargron](https://github.com/tootsuite/mastodon/pull/12117))
 - Remove HTML `lang` attribute from individual statuses in web UI ([Gargron](https://github.com/tootsuite/mastodon/pull/12124))
 - Remove fallback to long description on sidebar and meta description ([Gargron](https://github.com/tootsuite/mastodon/pull/12119))
+- Remove home_dms setting because its been broken for a few versions
 
 ### Fixed
 
+- Various security updates for different gems
+- Fix blocking/unblocking users from status dropdown menu
+- Fix poll options not being selectable via keyboard
+- Fix blocking/unblocking users from status dropdown menu [ThibG](https://github.com/tootsuite/mastodon/pull/12535)
+- Fix media open hotkey [Kjwon15](https://github.com/tootsuite/mastodon/pull/12546)
+- Fix generic HTTP 500 error on duplicate record  [Gargron](https://github.com/tootsuite/mastodon/pull/12563)
+- Fix missing error templates for non-HTML requests [Gargron](https://github.com/tootsuite/mastodon/pull/12593)
+- [Fix incoming federation whitelist mode](https://github.com/tootsuite/mastodon/pull/12185)
 - Fix preloaded JSON-LD context for identity not being used ([Gargron](https://github.com/tootsuite/mastodon/pull/12138))
 - Fix media editing modal changing dimensions once the image loads ([Gargron](https://github.com/tootsuite/mastodon/pull/12131))
 - Fix not showing whether a custom emoji has a local counterpart in admin UI ([Gargron](https://github.com/tootsuite/mastodon/pull/12135))
@@ -35,6 +63,25 @@ All notable changes to this project will be documented in this file.
 - Fix ffmpeg performance issues due to stdout buffer overflow ([hugogameiro](https://github.com/tootsuite/mastodon/pull/12088))
 - Fix S3 adapter retrying failing uploads with exponential backoff ([Gargron](https://github.com/tootsuite/mastodon/pull/12085))
 - Fix `tootctl accounts cull` advertising unused option flag ([Kjwon15](https://github.com/tootsuite/mastodon/pull/12074))
+- Fix an issue where polls with 'expires_at' not set expired 
+- Fix notification message for own poll 
+- Fix crash with null-ref 
+- Fix remote media descriptions being cut off at 420 chars 
+- Fix crowdin badge display in CONTRIBUTING.md 
+- Fix notification filters not applying to poll options 
+- Fix filtered out items being counted as pending items 
+- Fix code referencing wrong class 
+- fix: support KaiOS arrow navigation on public pages (tootsuite#12251) 
+- Fix blur behind closed registration message
+- Fix OCR with delete & redraft (tootsuite#12465)
+- Fix empty poll options not being filtered on remote poll update (toot… 
+- Fix proofs API being inaccessible in secure mode (tootsuite#12495)
+- Fix n+1 query for bookmarks on statuses (tootsuite#12494)
+- Fix pending upload count not being decremented on error 
+- Fix counter sizing (tootsuite#12446)
+- Fix lost focus when modals open/close (tootsuite#12437) 
+- Fallback to Create audience when object has no defined audience 
+- Fix conversations not having an unread indicator in web UI 
 
 ## [3.0.0] - 2019-10-03
 ### Added
