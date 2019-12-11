@@ -4,8 +4,8 @@ class AccountSearchService < BaseService
   attr_reader :query, :limit, :offset, :options, :account
 
   def call(query, account = nil, options = {})
-    @acct_hint = query.start_with?('@')
-    @query     = query.strip.gsub(/\A@/, '')
+    @acct_hint = query&.start_with?('@')
+    @query     = query&.strip&.gsub(/\A@/, '')
     @limit     = options[:limit].to_i
     @offset    = options[:offset].to_i
     @options   = options
@@ -42,11 +42,9 @@ class AccountSearchService < BaseService
     return [] if limit_for_non_exact_results.zero?
 
     @search_results ||= begin
-      if Chewy.enabled?
-        from_elasticsearch
-      else
-        from_database
-      end
+      results = from_elasticsearch if Chewy.enabled?
+      results ||= from_database
+      results
     end
   end
 
@@ -92,6 +90,8 @@ class AccountSearchService < BaseService
     ActiveRecord::Associations::Preloader.new.preload(records, :account_stat)
 
     records
+  rescue Faraday::ConnectionFailed, Parslet::ParseFailed
+    nil
   end
 
   def reputation_score_function
@@ -127,7 +127,7 @@ class AccountSearchService < BaseService
   end
 
   def following_ids
-    @following_ids ||= account.active_relationships.pluck(:target_account_id)
+    @following_ids ||= account.active_relationships.pluck(:target_account_id) + [account.id]
   end
 
   def limit_for_non_exact_results

@@ -50,6 +50,10 @@ eo:
         fields:
           name: Etikedo
           value: Enhavo
+      account_alias:
+        acct: Tenilo de la malnovan konton
+      account_migration:
+        acct: Tenilo de la novan konton
       account_warning_preset:
         text: Antaŭagordita teksto
       admin_account_action:
@@ -121,6 +125,8 @@ eo:
         must_be_follower: Bloki sciigojn de nesekvantoj
         must_be_following: Bloki sciigojn de homoj, kiujn vi ne sekvas
         must_be_following_dm: Bloki rektajn mesaĝojn de homoj, kiujn vi ne sekvas
+      invite:
+        comment: Komento
       invite_request:
         text: Kial vi volas aliĝi?
       notification_emails:

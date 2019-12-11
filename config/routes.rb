@@ -23,13 +23,13 @@ Rails.application.routes.draw do
                 tokens: 'oauth/tokens'
   end
 
-  get '.well-known/host-meta', to: 'well_known/host_meta#show', as: :host_meta,    defaults: { format: 'xml' }
-  get '.well-known/nodeinfo', to: 'well_known/node_info#index', as: :node_info,    defaults: { format: 'json' }
-  get 'nodeinfo/:version_number', to: 'well_known/node_info#show',  as: :node_info_schema, defaults: { format: 'json' }
+  get '.well-known/host-meta', to: 'well_known/host_meta#show', as: :host_meta, defaults: { format: 'xml' }
+  get '.well-known/nodeinfo', to: 'well_known/nodeinfo#index', as: :node_info,    defaults: { format: 'json' }
   get '.well-known/webfinger', to: 'well_known/webfinger#show', as: :webfinger
   get '.well-known/change-password', to: redirect('/auth/edit')
   get '.well-known/keybase-proof-config', to: 'well_known/keybase_proof_config#show'
 
+  get 'nodeinfo/:version_number', to: 'well_known/nodeinfo#show',  as: :node_info_schema, defaults: { format: 'json' }
   get 'manifest', to: 'manifests#show', defaults: { format: 'json' }
   get 'intent', to: 'intents#show'
   get 'custom.css', to: 'custom_css#show', as: :custom_css
@@ -136,11 +136,10 @@ Rails.application.routes.draw do
     end
 
     resource :delete, only: [:show, :destroy]
+    resource :migration, only: [:show, :create]
 
-    resource :migration, only: [:show, :create] do
-      collection do
-        post :cancel
-      end
+    namespace :migration do
+      resource :redirect, only: [:new, :create, :destroy]
     end
 
     resources :aliases, only: [:index, :create, :destroy]
@@ -289,6 +288,9 @@ Rails.application.routes.draw do
           resource :favourite, only: :create
           post :unfavourite, to: 'favourites#destroy'
 
+          resource :bookmark, only: :create
+          post :unbookmark, to: 'bookmarks#destroy'
+
           resource :mute, only: :create
           post :unmute, to: 'mutes#destroy'
 
@@ -324,6 +326,7 @@ Rails.application.routes.draw do
       resources :blocks,       only: [:index]
       resources :mutes,        only: [:index]
       resources :favourites,   only: [:index]
+      resources :bookmarks,    only: [:index]
       resources :reports,      only: [:create]
       resources :trends,       only: [:index]
       resources :filters,      only: [:index, :create, :show, :update, :destroy]

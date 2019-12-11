@@ -16,6 +16,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  lock_version    :integer          default(0), not null
+#  voters_count    :bigint(8)
 #
 
 class Poll < ApplicationRecord
@@ -35,7 +36,7 @@ class Poll < ApplicationRecord
   scope :attached, -> { where.not(status_id: nil) }
   scope :unattached, -> { where(status_id: nil) }
 
-  before_validation :prepare_options
+  before_validation :prepare_options, if: :local?
   before_validation :prepare_votes_count
 
   after_initialize :prepare_cached_tallies

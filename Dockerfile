@@ -3,8 +3,8 @@ FROM ubuntu:18.04 as build-dep
 # Use bash for the shell
 SHELL ["bash", "-c"]
 
-# Install Node
-ENV NODE_VER="12.9.1"
+# Install Node v12 (LTS)
+ENV NODE_VER="12.13.1"  
 RUN	echo "Etc/UTC" > /etc/localtime && \
 	apt update && \
 	apt -y install wget python && \
@@ -28,7 +28,7 @@ RUN apt update && \
 	make install_bin install_include install_lib
 
 # Install ruby
-ENV RUBY_VER="2.6.4"
+ENV RUBY_VER="2.6.5"
 ENV CPPFLAGS="-I/opt/jemalloc/include"
 ENV LDFLAGS="-L/opt/jemalloc/lib/"
 RUN apt update && \
@@ -123,3 +123,4 @@ RUN cd ~ && \
 # Set the work dir and the container entry point
 WORKDIR /opt/mastodon
 ENTRYPOINT ["/tini", "--"]
+EXPOSE 3000 4000

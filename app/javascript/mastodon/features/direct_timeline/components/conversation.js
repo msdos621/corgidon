@@ -11,6 +11,8 @@ import Permalink from 'mastodon/components/permalink';
 import IconButton from 'mastodon/components/icon_button';
 import RelativeTimestamp from 'mastodon/components/relative_timestamp';
 import { HotKeys } from 'react-hotkeys';
+import { autoPlayGif } from 'mastodon/initial_state';
+import classNames from 'classnames';
 
 const messages = defineMessages({
   more: { id: 'status.more', defaultMessage: 'More' },
@@ -37,8 +39,46 @@ class Conversation extends ImmutablePureComponent {
     onMoveUp: PropTypes.func,
     onMoveDown: PropTypes.func,
     markRead: PropTypes.func.isRequired,
+    delete: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
   };
+
+  _updateEmojis () {
+    const node = this.namesNode;
+
+    if (!node || autoPlayGif) {
+      return;
+    }
+
+    const emojis = node.querySelectorAll('.custom-emoji');
+
+    for (var i = 0; i < emojis.length; i++) {
+      let emoji = emojis[i];
+      if (emoji.classList.contains('status-emoji')) {
+        continue;
+      }
+      emoji.classList.add('status-emoji');
+
+      emoji.addEventListener('mouseenter', this.handleEmojiMouseEnter, false);
+      emoji.addEventListener('mouseleave', this.handleEmojiMouseLeave, false);
+    }
+  }
+
+  componentDidMount () {
+    this._updateEmojis();
+  }
+
+  componentDidUpdate () {
+    this._updateEmojis();
+  }
+
+  handleEmojiMouseEnter = ({ target }) => {
+    target.src = target.getAttribute('data-original');
+  }
+
+  handleEmojiMouseLeave = ({ target }) => {
+    target.src = target.getAttribute('data-static');
+  }
 
   handleClick = () => {
     if (!this.context.router) {
@@ -82,6 +122,10 @@ class Conversation extends ImmutablePureComponent {
     this.props.onToggleHidden(this.props.lastStatus);
   }
 
+  setNamesRef = (c) => {
+    this.namesNode = c;
+  }
+
   render () {
     const { accounts, lastStatus, unread, intl } = this.props;
 
@@ -115,7 +159,7 @@ class Conversation extends ImmutablePureComponent {
 
     return (
       <HotKeys handlers={handlers}>
-        <div className='conversation focusable muted' tabIndex='0'>
+        <div className={classNames('conversation focusable muted', { 'conversation--unread': unread })} tabIndex='0'>
           <div className='conversation__avatar'>
             <AvatarComposite accounts={accounts} size={48} />
           </div>
@@ -123,10 +167,10 @@ class Conversation extends ImmutablePureComponent {
           <div className='conversation__content'>
             <div className='conversation__content__info'>
               <div className='conversation__content__relative-time'>
-                <RelativeTimestamp timestamp={lastStatus.get('created_at')} />
+                {unread && <span className='conversation__unread' />} <RelativeTimestamp timestamp={lastStatus.get('created_at')} />
               </div>
 
-              <div className='conversation__content__names'>
+              <div className='conversation__content__names' ref={this.setNamesRef}>
                 <FormattedMessage id='conversation.with' defaultMessage='With {names}' values={{ names: <span>{names}</span> }} />
               </div>
             </div>
