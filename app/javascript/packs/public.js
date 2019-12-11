@@ -3,6 +3,7 @@ import loadPolyfills from '../mastodon/load_polyfills';
 import ready from '../mastodon/ready';
 import { start } from '../mastodon/common';
 import { maxBioChars } from '../mastodon/initial_state';
+import loadKeyboardExtensions from '../mastodon/load_keyboard_extensions';
 
 start();
 
@@ -300,6 +301,9 @@ function main() {
   });
 }
 
-loadPolyfills().then(main).catch(error => {
-  console.error(error);
-});
+loadPolyfills()
+  .then(main)
+  .then(loadKeyboardExtensions)
+  .catch(error => {
+    console.error(error);
+  });

@@ -9,7 +9,7 @@ module Mastodon
     end
 
     def minor
-      0
+      1
     end
 
     def patch
@@ -21,7 +21,7 @@ module Mastodon
     end
 
     def suffix
-      'rc5'
+      ''
     end
 
     def to_a
@@ -33,7 +33,7 @@ module Mastodon
     end
 
     def repository
-      ENV.fetch('GITHUB_REPOSITORY') { 'tootsuite/mastodon' }
+      ENV.fetch('GITHUB_REPOSITORY') { 'msdos621/corgidon' }
     end
 
     def source_base_url
