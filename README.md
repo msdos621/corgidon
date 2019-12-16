@@ -10,11 +10,13 @@ Corgidon is a fork of [Mastodon](https://github.com/tootsuite/mastodon/blob/mast
 # Notable Difference from Mastodon
 - Configurable Biography length 
 - Configurable Toot length
-- Option to show direct messages in your home timeline
 - Option to override the join url instead of directing people to joinmastodon.org
 - Reports instance info using the nodeinfo spec just like pleroma and others
 - Media takes the full width of the timeline in which it is contained
-- Default pink theme replaces default mastodon theme (see below)
+- Default pink theme replaces default mastodon theme (see themes section)
+- Public moderation log availible to logged in users (see below)
+![public moderation log](https://shiba.banana.dog/media_attachments/files/003/723/324/original/f3f160f3dc70ae2a.png)
+
 
 # Themes
 CorgiDon comes bundled with some themes from other instances as well as some unique themes.  Here they are
@@ -38,3 +40,4 @@ CorgiDon comes bundled with some themes from other instances as well as some uni
 # Things I tried and later removed
 - Recaptcha option for loing (removed since upstream mastodon introduced ability to review sign ups)
 - Collopsable toots (replaced my implimentation with the "Read more>> feature from upstream")
+- Option to show direct messages in your home timeline
