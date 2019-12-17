@@ -13,6 +13,7 @@ Corgidon is a fork of [Mastodon](https://github.com/tootsuite/mastodon/blob/mast
 - Option to override the join url instead of directing people to joinmastodon.org
 - Reports instance info using the nodeinfo spec just like pleroma and others
 - Media takes the full width of the timeline in which it is contained
+- Larger Emoji
 - Default pink theme replaces default mastodon theme (see themes section)
 - Public moderation log availible to logged in users (see below)
 ![public moderation log](https://shiba.banana.dog/media_attachments/files/003/723/324/original/f3f160f3dc70ae2a.png)
