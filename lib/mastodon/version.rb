@@ -13,7 +13,7 @@ module Mastodon
     end
 
     def patch
-      0
+      1
     end
 
     def flags
@@ -21,7 +21,7 @@ module Mastodon
     end
 
     def suffix
-      ''
+      'rc1'
     end
 
     def to_a
