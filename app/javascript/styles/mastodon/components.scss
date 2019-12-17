@@ -715,9 +715,9 @@
   font-size: inherit;
   vertical-align: middle;
   object-fit: contain;
-  margin: -.2ex .15em .2ex;
-  width: 16px;
-  height: 16px;
+  margin: .2ex .15em .2ex;
+  width: 35px;
+  height: 35px;
 
   img {
     width: auto;
@@ -787,9 +787,9 @@
   }
 
   .emojione {
-    width: 20px;
-    height: 20px;
-    margin: -3px 0 0;
+    width: 30px;
+    height: 30px;
+    margin: 0;
   }
 
   p {
@@ -1137,9 +1137,9 @@
     line-height: 24px;
 
     .emojione {
-      width: 24px;
-      height: 24px;
-      margin: -1px 0 0;
+      width: 34px;
+      height: 34px;
+      margin: 0;
     }
 
     .status__content__spoiler-link {
@@ -6298,8 +6298,8 @@ noscript {
       }
 
       .emojione {
-        width: 22px;
-        height: 22px;
+        width: 32px;
+        height: 32px;
       }
 
       h1 {
