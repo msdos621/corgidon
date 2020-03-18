@@ -32,6 +32,9 @@ class Status < ApplicationRecord
   include Paginable
   include Cacheable
   include StatusThreadingConcern
+  include RateLimitable
+
+  rate_limit by: :account, family: :statuses
 
   self.discard_column = :deleted_at
 
@@ -83,6 +86,7 @@ class Status < ApplicationRecord
   scope :remote, -> { where(local: false).where.not(uri: nil) }
   scope :local,  -> { where(local: true).or(where(uri: nil)) }
 
+  scope :with_accounts, ->(ids) { where(id: ids).includes(:account) }
   scope :without_replies, -> { where('statuses.reply = FALSE OR statuses.in_reply_to_account_id = statuses.account_id') }
   scope :without_reblogs, -> { where('statuses.reblog_of_id IS NULL') }
   scope :with_public_visibility, -> { where(visibility: :public) }
@@ -194,8 +198,12 @@ class Status < ApplicationRecord
   def title
     if destroyed?
       "#{account.acct} deleted status"
+    elsif reblog?
+      preview = sensitive ? '<sensitive>' : text.slice(0, 10).split("\n")[0]
+      "#{account.acct} shared #{reblog.account.acct}'s: #{preview}"
     else
-      reblog? ? "#{account.acct} shared a status by #{reblog.account.acct}" : "New status by #{account.acct}"
+      preview = sensitive ? '<sensitive>' : text.slice(0, 20).split("\n")[0]
+      "#{account.acct}: #{preview}"
     end
   end
 
@@ -359,6 +367,21 @@ class Status < ApplicationRecord
              .or(scope.where(id: account.mentions.select(:status_id)))
              .merge(scope.where(reblog_of_id: nil).or(scope.where.not(reblogs_statuses: { account_id: account.excluded_from_timeline_account_ids })))
       end
+    end
+
+    def from_text(text)
+      return [] if text.blank?
+
+      text.scan(FetchLinkCardService::URL_PATTERN).map(&:first).uniq.map do |url|
+        status = begin
+          if TagManager.instance.local_url?(url)
+            ActivityPub::TagManager.instance.uri_to_resource(url, Status)
+          else
+            Status.find_by(uri: url) || Status.find_by(url: url)
+          end
+        end
+        status&.distributable? ? status : nil
+      end.compact
     end
 
     private

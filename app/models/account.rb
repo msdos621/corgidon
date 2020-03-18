@@ -46,11 +46,12 @@
 #  silenced_at             :datetime
 #  suspended_at            :datetime
 #  trust_level             :integer
+#  hide_collections        :boolean
 #
 
 class Account < ApplicationRecord
   USERNAME_RE = /[a-z0-9_]+([a-z0-9_\.-]+[a-z0-9_]+)?/i
-  MENTION_RE  = /(?<=^|[^\/[:word:]])@((#{USERNAME_RE})(?:@[a-z0-9\.\-]+[a-z0-9]+)?)/i
+  MENTION_RE  = /(?<=^|[^\/[:word:]])@((#{USERNAME_RE})(?:@[[:word:]\.\-]+[a-z0-9]+)?)/i
 
   include AccountAssociations
   include AccountAvatar
@@ -70,14 +71,13 @@ class Account < ApplicationRecord
   enum protocol: [:ostatus, :activitypub]
 
   validates :username, presence: true
+  validates_with UniqueUsernameValidator, if: -> { will_save_change_to_username? }
 
   # Remote user validations
-  validates :username, uniqueness: { scope: :domain, case_sensitive: true }, if: -> { !local? && will_save_change_to_username? }
   validates :username, format: { with: /\A#{USERNAME_RE}\z/i }, if: -> { !local? && will_save_change_to_username? }
 
   # Local user validations
   validates :username, format: { with: /\A[a-z0-9_]+\z/i }, length: { maximum: 30 }, if: -> { local? && will_save_change_to_username? && actor_type != 'Application' }
-  validates_with UniqueUsernameValidator, if: -> { local? && will_save_change_to_username? }
   validates_with UnreservedUsernameValidator, if: -> { local? && will_save_change_to_username? }
   validates :display_name, length: { maximum: 30 }, if: -> { local? && will_save_change_to_display_name? }
   validates :note, note_length: { maximum: Setting.max_bio_chars.to_i }, if: -> { local? && will_save_change_to_note? }
@@ -103,6 +103,7 @@ class Account < ApplicationRecord
   scope :discoverable, -> { searchable.without_silenced.where(discoverable: true).left_outer_joins(:account_stat) }
   scope :tagged_with, ->(tag) { joins(:accounts_tags).where(accounts_tags: { tag_id: tag }) }
   scope :by_recent_status, -> { order(Arel.sql('(case when account_stats.last_status_at is null then 1 else 0 end) asc, account_stats.last_status_at desc, accounts.id desc')) }
+  scope :by_recent_sign_in, -> { order(Arel.sql('(case when users.current_sign_in_at is null then 1 else 0 end) asc, users.current_sign_in_at desc, accounts.id desc')) }
   scope :popular, -> { order('account_stats.followers_count desc') }
   scope :by_domain_and_subdomains, ->(domain) { where(domain: domain).or(where(arel_table[:domain].matches('%.' + domain))) }
   scope :not_excluded_by_account, ->(account) { where.not(id: account.excluded_from_timeline_account_ids) }
@@ -162,6 +163,10 @@ class Account < ApplicationRecord
 
   def acct
     local? ? username : "#{username}@#{domain}"
+  end
+
+  def pretty_acct
+    local? ? username : "#{username}@#{Addressable::IDNA.to_unicode(domain)}"
   end
 
   def local_username_and_domain
@@ -310,10 +315,6 @@ class Account < ApplicationRecord
     self.fields = tmp
   end
 
-  def subscription(webhook_url)
-    @subscription ||= OStatus2::Subscription.new(remote_url, secret: secret, webhook: webhook_url, hub: hub_url)
-  end
-
   def save_with_optional_media!
     save!
   rescue ActiveRecord::RecordInvalid
@@ -321,6 +322,14 @@ class Account < ApplicationRecord
     self.header = nil
 
     save!
+  end
+
+  def hides_followers?
+    hide_collections? || user_hides_network?
+  end
+
+  def hides_following?
+    hide_collections? || user_hides_network?
   end
 
   def object_type
@@ -474,6 +483,21 @@ class Account < ApplicationRecord
 
       ActiveRecord::Associations::Preloader.new.preload(records, :account_stat)
       records
+    end
+
+    def from_text(text)
+      return [] if text.blank?
+
+      text.scan(MENTION_RE).map { |match| match.first.split('@', 2) }.uniq.map do |(username, domain)|
+        domain = begin
+          if TagManager.instance.local_domain?(domain)
+            nil
+          else
+            TagManager.instance.normalize_domain(domain)
+          end
+        end
+        EntityCache.instance.mention(username, domain)
+      end.compact
     end
 
     private

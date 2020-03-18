@@ -5,7 +5,7 @@ class ActivityPub::Activity
   include Redisable
 
   SUPPORTED_TYPES = %w(Note Question).freeze
-  CONVERTED_TYPES = %w(Image Audio Video Article Page).freeze
+  CONVERTED_TYPES = %w(Image Audio Video Article Page Event).freeze
 
   def initialize(json, account, **options)
     @json    = json
@@ -21,7 +21,7 @@ class ActivityPub::Activity
   class << self
     def factory(json, account, **options)
       @json = json
-      klass&.new(json, account, options)
+      klass&.new(json, account, **options)
     end
 
     private
