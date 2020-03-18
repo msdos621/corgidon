@@ -115,6 +115,13 @@ jobs:
         environment: *ruby_environment
     <<: *install_ruby_dependencies
 
+  install-ruby2.5:
+    <<: *defaults
+    docker:
+      - image: circleci/ruby:2.5-buster-node
+        environment: *ruby_environment
+    <<: *install_ruby_dependencies
+
   build:
     <<: *defaults
     steps:
@@ -168,6 +175,17 @@ jobs:
       - image: circleci/redis:5-alpine
     <<: *test_steps
 
+  test-ruby2.5:
+    <<: *defaults
+    docker:
+      - image: circleci/ruby:2.5-buster-node
+        environment: *ruby_environment
+      - image: circleci/postgres:10.6-alpine
+        environment:
+          POSTGRES_USER: root
+      - image: circleci/redis:5-alpine
+    <<: *test_steps
+
   test-webui:
     <<: *defaults
     docker:
@@ -175,6 +193,16 @@ jobs:
     steps:
       - *attach_workspace
       - run: ./bin/retry yarn test:jest
+
+  check-i18n:
+    <<: *defaults
+    steps:
+      - *attach_workspace
+      - *install_system_dependencies
+      - run: bundle exec i18n-tasks check-normalized
+      - run: bundle exec i18n-tasks unused -l en
+      - run: bundle exec i18n-tasks check-consistent-interpolations
+      - run: bundle exec rake repo:check_locales_files
 
 workflows:
   version: 2
@@ -187,7 +215,11 @@ workflows:
       - install-ruby2.6:
           requires:
             - install
-            - install-ruby2.6
+            - install-ruby2.7
+      - install-ruby2.5:
+          requires:
+            - install
+            - install-ruby2.7
       - build:
           requires:
             - install-ruby2.7
@@ -209,3 +241,6 @@ workflows:
       - test-webui:
           requires:
             - install
+      - check-i18n:
+          requires:
+            - install-ruby2.7

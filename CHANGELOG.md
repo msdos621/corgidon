@@ -3,9 +3,9 @@ Changelog
 
 All notable changes to this project will be documented in this file.
 
-## [3.1.2+corgi] - 2020-02-27
+## [v3.1.2] - 2020-02-27
 ### Added
-
+- Increased default size of emojis [msdos621](https://github.com/msdos621/corgidon/pull/20)
 - Add `--reset-password` option to `tootctl accounts modify` ([ThibG](https://github.com/tootsuite/mastodon/pull/13126))
 - Add source-mapped stacktrace to error message in web UI ([ThibG](https://github.com/tootsuite/mastodon/pull/13082))
 
