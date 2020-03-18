@@ -30,9 +30,9 @@
     font-weight: 400;
 
     .emojione {
-      width: 20px;
-      height: 20px;
-      margin: -3px 0 0;
+      width: 30px;
+      height: 30px;
+      margin: 0;
     }
 
     p {
@@ -512,9 +512,9 @@ $fluid-breakpoint: $maximum-width + 20px;
         line-height: 20px;
 
         .emojione {
-          width: 20px;
-          height: 20px;
-          margin: -3px 0 0;
+          width: 30px;
+          height: 30px;
+          margin: 0;
         }
 
         .status__content__spoiler-link {
