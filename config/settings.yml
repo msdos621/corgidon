@@ -10,8 +10,8 @@ defaults: &defaults
   site_contact_username: ''
   site_contact_email: ''
   registrations_mode: 'open'
-  max_bio_chars: 160
-  max_toot_chars: 500
+  max_bio_chars: 500
+  max_toot_chars: 5000
   nodeinfo_show_blocks: true
   profile_directory: true
   closed_registrations_message: ''
