@@ -173,10 +173,20 @@ Rails.application.routes.draw do
         get :edit
       end
     end
+
     resources :email_domain_blocks, only: [:index, :new, :create, :destroy]
     resources :action_logs, only: [:index]
     resources :warning_presets, except: [:new]
+
+    resources :announcements, except: [:show] do
+      member do
+        post :publish
+        post :unpublish
+      end
+    end
+
     resource :settings, only: [:edit, :update]
+    resources :site_uploads, only: [:destroy]
 
     resources :invites, only: [:index, :create, :destroy] do
       collection do
@@ -223,7 +233,7 @@ Rails.application.routes.draw do
       resource :reset, only: [:create]
       resource :action, only: [:new, :create], controller: 'account_actions'
       resources :statuses, only: [:index, :show, :create, :update, :destroy]
-      resources :followers, only: [:index]
+      resources :relationships, only: [:index]
 
       resource :confirmation, only: [:create] do
         collection do
@@ -231,7 +241,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resource :role do
+      resource :role, only: [] do
         member do
           post :promote
           post :demote
@@ -317,13 +327,23 @@ Rails.application.routes.draw do
       resources :scheduled_statuses, only: [:index, :show, :update, :destroy]
       resources :preferences, only: [:index]
 
+      resources :announcements, only: [:index] do
+        scope module: :announcements do
+          resources :reactions, only: [:update, :destroy]
+        end
+
+        member do
+          post :dismiss
+        end
+      end
+
       resources :conversations, only: [:index, :destroy] do
         member do
           post :read
         end
       end
 
-      resources :media,        only: [:create, :update]
+      resources :media,        only: [:create, :update, :show]
       resources :blocks,       only: [:index]
       resources :mutes,        only: [:index]
       resources :favourites,   only: [:index]
@@ -435,6 +455,7 @@ Rails.application.routes.draw do
     end
 
     namespace :v2 do
+      resources :media, only: [:create]
       get '/search', to: 'search#index', as: :search
     end
 

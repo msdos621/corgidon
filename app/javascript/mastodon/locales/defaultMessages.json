@@ -142,7 +142,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Unhide {domain}",
+        "defaultMessage": "Unblock domain {domain}",
         "id": "account.unblock_domain"
       }
     ],
@@ -217,7 +217,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Toggle visibility",
+        "defaultMessage": "Hide media",
         "id": "media_gallery.toggle_visible"
       },
       {
@@ -293,6 +293,10 @@
   },
   {
     "descriptors": [
+      {
+        "defaultMessage": "today",
+        "id": "relative_time.today"
+      },
       {
         "defaultMessage": "now",
         "id": "relative_time.just_now"
@@ -447,11 +451,11 @@
         "id": "status.copy"
       },
       {
-        "defaultMessage": "Hide everything from {domain}",
+        "defaultMessage": "Block domain {domain}",
         "id": "account.block_domain"
       },
       {
-        "defaultMessage": "Unhide {domain}",
+        "defaultMessage": "Unblock domain {domain}",
         "id": "account.unblock_domain"
       },
       {
@@ -519,7 +523,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Hide entire domain",
+        "defaultMessage": "Block entire domain",
         "id": "confirmations.domain_block.confirm"
       },
       {
@@ -693,11 +697,11 @@
         "id": "account.media"
       },
       {
-        "defaultMessage": "Hide everything from {domain}",
+        "defaultMessage": "Block domain {domain}",
         "id": "account.block_domain"
       },
       {
-        "defaultMessage": "Unhide {domain}",
+        "defaultMessage": "Unblock domain {domain}",
         "id": "account.unblock_domain"
       },
       {
@@ -733,7 +737,7 @@
         "id": "navigation_bar.blocks"
       },
       {
-        "defaultMessage": "Hidden domains",
+        "defaultMessage": "Blocked domains",
         "id": "navigation_bar.domain_blocks"
       },
       {
@@ -769,12 +773,16 @@
         "id": "account.muted"
       },
       {
-        "defaultMessage": "Domain hidden",
+        "defaultMessage": "Domain blocked",
         "id": "account.domain_blocked"
       },
       {
         "defaultMessage": "Bot",
         "id": "account.badges.bot"
+      },
+      {
+        "defaultMessage": "Group",
+        "id": "account.badges.group"
       },
       {
         "defaultMessage": "Toots",
@@ -1036,6 +1044,14 @@
         "id": "compose_form.poll.duration"
       },
       {
+        "defaultMessage": "Change poll to allow multiple choices",
+        "id": "compose_form.poll.switch_to_multiple"
+      },
+      {
+        "defaultMessage": "Change poll to allow for a single choice",
+        "id": "compose_form.poll.switch_to_single"
+      },
+      {
         "defaultMessage": "{number, plural, one {# minute} other {# minutes}}",
         "id": "intervals.full.minutes"
       },
@@ -1057,7 +1073,7 @@
         "id": "privacy.public.short"
       },
       {
-        "defaultMessage": "Post to public timelines",
+        "defaultMessage": "Visible for all, shown in public timelines",
         "id": "privacy.public.long"
       },
       {
@@ -1065,7 +1081,7 @@
         "id": "privacy.unlisted.short"
       },
       {
-        "defaultMessage": "Do not show in public timelines",
+        "defaultMessage": "Visible for all, but not in public timelines",
         "id": "privacy.unlisted.long"
       },
       {
@@ -1073,7 +1089,7 @@
         "id": "privacy.private.short"
       },
       {
-        "defaultMessage": "Post to followers only",
+        "defaultMessage": "Visible for followers only",
         "id": "privacy.private.long"
       },
       {
@@ -1081,7 +1097,7 @@
         "id": "privacy.direct.short"
       },
       {
-        "defaultMessage": "Post to mentioned users only",
+        "defaultMessage": "Visible for mentioned users only",
         "id": "privacy.direct.long"
       },
       {
@@ -1396,6 +1412,10 @@
         "id": "account.unmute"
       },
       {
+        "defaultMessage": "Unfollow",
+        "id": "confirmations.unfollow.confirm"
+      },
+      {
         "defaultMessage": "Are you sure you want to unfollow {name}?",
         "id": "confirmations.unfollow.message"
       },
@@ -1446,15 +1466,15 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Hidden domains",
+        "defaultMessage": "Blocked domains",
         "id": "column.domain_blocks"
       },
       {
-        "defaultMessage": "Unhide {domain}",
+        "defaultMessage": "Unblock domain {domain}",
         "id": "account.unblock_domain"
       },
       {
-        "defaultMessage": "There are no hidden domains yet.",
+        "defaultMessage": "There are no blocked domains yet.",
         "id": "empty_column.domain_blocks"
       }
     ],
@@ -1537,6 +1557,27 @@
       }
     ],
     "path": "app/javascript/mastodon/features/following/index.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Close",
+        "id": "lightbox.close"
+      },
+      {
+        "defaultMessage": "Previous",
+        "id": "lightbox.previous"
+      },
+      {
+        "defaultMessage": "Next",
+        "id": "lightbox.next"
+      },
+      {
+        "defaultMessage": "Announcement",
+        "id": "announcement.announcement"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/getting_started/components/announcements.json"
   },
   {
     "descriptors": [
@@ -1704,6 +1745,14 @@
       {
         "defaultMessage": "Home",
         "id": "column.home"
+      },
+      {
+        "defaultMessage": "Show announcements",
+        "id": "home.show_announcements"
+      },
+      {
+        "defaultMessage": "Hide announcements",
+        "id": "home.hide_announcements"
       },
       {
         "defaultMessage": "Your home timeline is empty! Visit {public} or use search to get started and meet other users.",
@@ -2283,6 +2332,10 @@
         "id": "status.bookmark"
       },
       {
+        "defaultMessage": "More",
+        "id": "status.more"
+      },
+      {
         "defaultMessage": "Mute @{name}",
         "id": "status.mute"
       },
@@ -2331,11 +2384,11 @@
         "id": "status.copy"
       },
       {
-        "defaultMessage": "Hide everything from {domain}",
+        "defaultMessage": "Block domain {domain}",
         "id": "account.block_domain"
       },
       {
-        "defaultMessage": "Unhide {domain}",
+        "defaultMessage": "Unblock domain {domain}",
         "id": "account.unblock_domain"
       },
       {
