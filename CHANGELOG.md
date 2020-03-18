@@ -3,7 +3,7 @@ Changelog
 
 All notable changes to this project will be documented in this file.
 
-## [v3.1.2] - 2020-02-27
+## [v3.1.2] - 2020-03-18
 ### Added
 - Added new theme based on meemu.org msdos621
 - Increased default size of emojis [msdos621](https://github.com/msdos621/corgidon/pull/20)
