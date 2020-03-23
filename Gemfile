@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '>= 2.4.0', '< 3.0.0'
+ruby '>= 2.5.0', '< 3.0.0'
 
 gem 'pkg-config', '~> 1.4'
 
@@ -84,7 +84,7 @@ gem 'mario-redis-lock', '~> 1.2', require: 'redis_lock'
 gem 'rqrcode', '~> 1.1'
 gem 'ruby-progressbar', '~> 1.10'
 gem 'sanitize', '~> 5.1'
-gem 'sidekiq', '~> 5.2'
+gem 'sidekiq', '~> 6.0'
 gem 'sidekiq-scheduler', '~> 3.0'
 gem 'sidekiq-unique-jobs', '~> 6.0'
 gem 'sidekiq-bulk', '~>0.2.0'
