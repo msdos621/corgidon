@@ -1075,6 +1075,11 @@
 
 .status__display-name {
   color: $dark-text-color;
+  .emojione {
+    width: 16px;
+    height: 16px;
+    margin: -.2ex .15em .2ex;
+  }
 }
 
 .status__info .status__display-name {
@@ -1289,6 +1294,11 @@
     overflow: hidden;
     text-decoration: none;
     font-size: 14px;
+    .emojione {
+      width: 16px;
+      height: 16px;
+      margin: -.2ex .15em .2ex;
+    }
   }
 }
 
@@ -1656,6 +1666,12 @@ a.account__display-name {
     color: $primary-text-color;
     text-decoration: underline;
   }
+
+  .emojione {
+    width: 16px;
+    height: 16px;
+    margin: -.2ex .15em .2ex;
+  }
 }
 
 .notification__relative_time {
@@ -1668,14 +1684,29 @@ a.account__display-name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  .emojione {
+    width: 16px;
+    height: 16px;
+    margin: -.2ex .15em .2ex;
+  }
 }
 
 .display-name__html {
   font-weight: 500;
+  .emojione {
+    width: 16px;
+    height: 16px;
+    margin: -.2ex .15em .2ex;
+  }
 }
 
 .display-name__account {
   font-size: 14px;
+  .emojione {
+    width: 16px;
+    height: 16px;
+    margin: -.2ex .15em .2ex;
+  }
 }
 
 .status__relative-time,
