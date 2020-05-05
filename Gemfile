@@ -154,7 +154,6 @@ end
 group :production do
   gem 'lograge', '~> 0.11'
   gem 'redis-rails', '~> 5.0'
-  gem 'newrelic_rpm'
 end
 
 gem 'concurrent-ruby', require: false
