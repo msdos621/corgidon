@@ -17,6 +17,7 @@ aliases:
           PAM_ENABLED: true
           PAM_DEFAULT_SERVICE: pam_test
           PAM_CONTROLLED_SERVICE: pam_test_controlled
+          UNDLER_VERSION: 2.1.4
     working_directory: ~/projects/mastodon/
 
   - &attach_workspace

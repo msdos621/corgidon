@@ -35,7 +35,7 @@ services:
 
   web:
     build: .
-    image: msdos621/mastodon
+    image: msdos621/corgidon
     restart: always
     env_file: .env.production
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
@@ -49,14 +49,14 @@ services:
     depends_on:
       - db
       - redis
-      - tor
-      - privoxy
+##      - tor
+##      - privoxy
     volumes:
       - ./public/system:/mastodon/public/system
 
   streaming:
     build: .
-    image: msdos621/mastodon
+    image: msdos621/corgidon
     restart: always
     env_file: .env.production
     command: node ./streaming
@@ -70,20 +70,20 @@ services:
     depends_on:
       - db
       - redis
-      - tor
-      - privoxy
+##      - tor
+##      - privoxy
 
   sidekiq:
     build: .
-    image: msdos621/mastodon
+    image: msdos621/corgidon
     restart: always
     env_file: .env.production
     command: bundle exec sidekiq
     depends_on:
       - db
       - redis
-      - tor
-      - privoxy
+##      - tor
+##      - privoxy
     networks:
       - external_network
       - internal_network
@@ -93,19 +93,18 @@ services:
 ## Uncomment to enable federation with tor instances along with adding the following ENV variables
 ## http_proxy=http://privoxy:8118
 ## ALLOW_ACCESS_TO_HIDDEN_SERVICE=true
-  tor:
-    image: sirboops/tor
-    networks:
-      - external_network
-      - internal_network
-
-  privoxy:
-    image: sirboops/privoxy
-    volumes:
-      - ./priv-config:/opt/config
-    networks:
-      - external_network
-      - internal_network
+##   tor:
+## image: sirboops/tor
+## networks:
+##   - external_network
+##   - internal_network
+## privoxy:
+##  image: sirboops/privoxy
+## volumes:
+##  - ./priv-config:/opt/config
+## networks:
+##  - external_network
+##  - internal_network
 
 networks:
   external_network:
