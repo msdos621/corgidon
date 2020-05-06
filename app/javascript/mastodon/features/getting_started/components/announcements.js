@@ -378,6 +378,14 @@ class Announcements extends ImmutablePureComponent {
     index: 0,
   };
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.announcements.size > 0 && state.index >= props.announcements.size) {
+      return { index: props.announcements.size - 1 };
+    } else {
+      return null;
+    }
+  }
+
   componentDidMount () {
     this._markAnnouncementAsRead();
   }
