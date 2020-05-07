@@ -44,3 +44,66 @@ CorgiDon comes bundled with some themes from other instances as well as some uni
 - Recaptcha option for loing (removed since upstream mastodon introduced ability to review sign ups)
 - Collopsable toots (replaced my implimentation with the "Read more>> feature from upstream")
 - Option to show direct messages in your home timeline
+
+# Docker Compose Install
+A rough guide to how to setup an instance with docker-compose
+
+## Prereqs
+- A machine running some version of linux with docker and docker-compose installed
+- A domain name (or a subdomain) for the Mastodon server, e.g. example.com
+- An e-mail delivery service or other SMTP server to use for mail delivery
+- Nginx
+- SSL certs / lets-encrypt for your chosen domain
+
+- create a directory for installation, make a note of the full path for later use
+```
+mkdir corgidon
+cd corgidon
+pwd corgidon
+```
+- pull down .env and update *DB_PASS* , *SMTP* settings, *LOCAL_DOMAIN* and any other things you want to change and save the file.
+```
+curl https://raw.githubusercontent.com/msdos621/corgidon/main/.env.production.sample  > .env.production
+```
+- pull down the example docker-compose file
+```
+curl https://raw.githubusercontent.com/msdos621/corgidon/main/docker-compose.yml  > docker-compose.yml
+```
+- pull the latest version of the docker containers
+```
+docker-compose pull
+```
+- generate SECRET_KEY_BASE and OTP_SECRET by running the following command twice.  Set them in the .env.production file
+```
+docker-compose run --rm web bundle exec rake secret
+```
+- generate VAPID_PRIVATE_KEY and VAPID_PUBLIC_KEY by running the following command twice.  Set them in the .env.production file
+```
+docker-compose run --rm web bundle exec rake mastodon:webpush:generate_vapid_key
+```
+- run db setups
+```
+docker-compose run --rm web rails db:setup
+```
+- rebuild assets
+```
+docker-compose run --rm web rails assets:precompile
+```
+- start the corgidon server
+```
+docker-compose up -d
+```
+- setup nginx by pulling down the config file then editing it (replace example.com and /home/mastodon/ with your domain and your installation directory
+```
+cd /etc/nginx/sites-availible 
+curl https://raw.githubusercontent.com/msdos621/corgidon/main/dist/nginx.conf  > /etc/nginx/sites-available/example.com
+ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/example.com
+nginx -t
+service nginx reload
+```
+- Navigate to your instance and sign up for an account 
+- Give that new account admin privlidges
+```
+cd ~/corgidon
+docker-compose run --rm web bin/tootctl accounts modify alice --role your_username
+```
