@@ -81,9 +81,10 @@ docker-compose run --rm web bundle exec rake secret
 ```
 docker-compose run --rm web bundle exec rake mastodon:webpush:generate_vapid_key
 ```
-- run db setups
+- run db setup and migrate
 ```
 docker-compose run --rm web rails db:setup
+docker-compose run --rm web rails db:migrate
 ```
 - rebuild assets
 ```
