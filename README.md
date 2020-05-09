@@ -41,7 +41,7 @@ CorgiDon comes bundled with some themes from other instances as well as some uni
 ![witches town](https://shiba.banana.dog/media_attachments/files/002/665/844/original/bfffb692af586977.png)
 
 # Things I tried and later removed
-- Recaptcha option for loing (removed since upstream mastodon introduced ability to review sign ups)
+- Recaptcha option for login (removed since upstream mastodon introduced ability to review sign ups)
 - Collopsable toots (replaced my implimentation with the "Read more>> feature from upstream")
 - Option to show direct messages in your home timeline
 
@@ -93,6 +93,10 @@ docker-compose run --rm web rails assets:precompile
 - start the corgidon server
 ```
 docker-compose up -d
+```
+- ensure the media upload directory has proper permission
+```
+chown -R 991:991 public
 ```
 - setup nginx by pulling down the config file then editing it (replace example.com and /home/mastodon/ with your domain and your installation directory
 ```
