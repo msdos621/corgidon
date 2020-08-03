@@ -3,9 +3,9 @@ fr:
   simple_form:
     hints:
       account_alias:
-        acct: Spécifiez le nom d’utilisateur@domaine du compte que vous souhaitez migrer
+        acct: Spécifiez l’identifiant@domaine du compte que vous souhaitez migrer
       account_migration:
-        acct: Spécifiez le nom d’utilisateur@domaine du compte vers lequel vous souhaitez déménager
+        acct: Spécifiez l’identifiant@domaine du compte vers lequel vous souhaitez déménager
       account_warning_preset:
         text: Vous pouvez utiliser la syntaxe des pouets, comme les URLs, les hashtags et les mentions
         title: Facultatif. Invisible pour le destinataire
@@ -43,8 +43,8 @@ fr:
         setting_aggregate_reblogs: Ne pas afficher de nouveaux partages pour les pouets qui ont été récemment partagés (n’affecte que les partages nouvellement reçus)
         setting_default_sensitive: Les médias sensibles sont cachés par défaut et peuvent être révélés d’un simple clic
         setting_display_media_default: Masquer les médias marqués comme sensibles
-        setting_display_media_hide_all: Toujours cacher les médias
-        setting_display_media_show_all: Toujours afficher les médias marqués comme sensibles
+        setting_display_media_hide_all: Toujours masquer les médias
+        setting_display_media_show_all: Toujours montrer les médias
         setting_hide_network: Ceux que vous suivez et ceux qui vous suivent ne seront pas affichés sur votre profil
         setting_noindex: Affecte votre profil public ainsi que vos statuts
         setting_show_application: Le nom de l’application que vous utilisez afin d’envoyer des pouets sera affiché dans la vue détaillée de ceux-ci
@@ -77,7 +77,7 @@ fr:
           name: Étiquette
           value: Contenu
       account_alias:
-        acct: L’identifiant de l’ancien compte
+        acct: Identifiant de l’ancien compte
       account_migration:
         acct: L’identifiant du nouveau compte
       account_warning_preset:
@@ -151,6 +151,7 @@ fr:
         setting_use_blurhash: Afficher des dégradés colorés pour les médias cachés
         setting_use_pending_items: Mode lent
         severity: Sévérité
+        sign_in_token_attempt: Code de sécurité
         type: Type d’import
         username: Identifiant
         username_or_email: Nom d’utilisateur·rice ou courriel
