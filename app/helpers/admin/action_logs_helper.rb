@@ -85,7 +85,7 @@ module Admin::ActionLogsHelper
         I18n.t('admin.action_logs.deleted_status')
       end
     when 'Announcement'
-      truncate(attributes['text'])
+      truncate(attributes['text'].is_a?(Array) ? attributes['text'].last : attributes['text'])
     end
   end
 end
