@@ -231,8 +231,6 @@ fi:
       filter_by_user: Suodata käyttäjän mukaan
       title: Auditointiloki
     announcements:
-<<<<<<< HEAD
-=======
       destroyed_msg: Ilmoitus poistettu onnistuneesti!
       edit:
         title: Muokkaa ilmoitusta
@@ -241,7 +239,6 @@ fi:
         create: Luo ilmoitus
         title: Uusi ilmoitus
       published_msg: Ilmoitus julkaistu onnistuneesti!
->>>>>>> 93dd413a47f828f386d84cc1c7db15536c4d80c3
       title: Ilmoitukset
     custom_emojis:
       assign_category: Aseta kategoria
