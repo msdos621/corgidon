@@ -5,14 +5,6 @@ module Admin::ActionLogsHelper
     if log.target
       redacted_linkable_log_target(log.target)
     else
-      redacted_log_target_from_history(log.target_type, log.recorded_changes)
-    end
-  end
-
-  def log_target(log)
-    if log.target
-      linkable_log_target(log.target)
-    else
       log_target_from_history(log.target_type, log.recorded_changes)
     end
   end
@@ -40,36 +32,6 @@ module Admin::ActionLogsHelper
     end
   end
 
-  def redacted_linkable_log_target(record)
-    case record.class.name
-    when 'Account'
-      '[redacted]'
-    when 'User'
-      'User'
-    when 'CustomEmoji'
-      record.shortcode
-    when 'Report'
-      'Report'
-    when 'DomainBlock', 'EmailDomainBlock'
-      link_to record.domain, "https://#{record.domain}"
-    when 'Status'
-      'Status'
-    when 'AccountWarning'
-      '[redacted]'
-    end
-  end
-
-  def redacted_log_target_from_history(type, attributes)
-    case type
-    when 'CustomEmoji'
-      attributes['shortcode']
-    when 'DomainBlock', 'EmailDomainBlock'
-      link_to attributes['domain'], "https://#{attributes['domain']}"
-    when 'Status'
-      '[redacted status]'
-    end
-  end
-
   def log_target_from_history(type, attributes)
     case type
     when 'CustomEmoji'
@@ -85,7 +47,7 @@ module Admin::ActionLogsHelper
         I18n.t('admin.action_logs.deleted_status')
       end
     when 'Announcement'
-      truncate(attributes['text'])
+      truncate(attributes['text'].is_a?(Array) ? attributes['text'].last : attributes['text'])
     end
   end
 end
