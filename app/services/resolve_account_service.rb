@@ -3,6 +3,7 @@
 class ResolveAccountService < BaseService
   include JsonLdHelper
   include DomainControlHelper
+  include WebfingerHelper
 
   class WebfingerRedirectError < StandardError; end
 
@@ -25,11 +26,10 @@ class ResolveAccountService < BaseService
 
     @account ||= Account.find_remote(@username, @domain)
 
-    return @account if @account&.local? || !webfinger_update_due?
+    return @account if @account&.local? || @domain.nil? || !webfinger_update_due?
 
     # At this point we are in need of a Webfinger query, which may
     # yield us a different username/domain through a redirect
-
     process_webfinger!(@uri)
 
     # Because the username/domain pair may be different than what
@@ -46,7 +46,7 @@ class ResolveAccountService < BaseService
     # either needs to be created, or updated from fresh data
 
     process_account!
-  rescue Goldfinger::Error, WebfingerRedirectError, Oj::ParseError => e
+  rescue Webfinger::Error, WebfingerRedirectError, Oj::ParseError => e
     Rails.logger.debug "Webfinger query for #{@uri} failed: #{e}"
     nil
   end
@@ -76,7 +76,7 @@ class ResolveAccountService < BaseService
   end
 
   def process_webfinger!(uri, redirected = false)
-    @webfinger                           = Goldfinger.finger("acct:#{uri}")
+    @webfinger                           = webfinger!("acct:#{uri}")
     confirmed_username, confirmed_domain = @webfinger.subject.gsub(/\Aacct:/, '').split('@')
 
     if confirmed_username.casecmp(@username).zero? && confirmed_domain.casecmp(@domain).zero?
@@ -111,15 +111,17 @@ class ResolveAccountService < BaseService
   end
 
   def webfinger_update_due?
+    return false if @options[:check_delivery_availability] && !DeliveryFailureTracker.available?(@domain)
+
     @account.nil? || ((!@options[:skip_webfinger] || @account.ostatus?) && @account.possibly_stale?)
   end
 
   def activitypub_ready?
-    !@webfinger.link('self').nil? && ['application/activity+json', 'application/ld+json; profile="https://www.w3.org/ns/activitystreams"'].include?(@webfinger.link('self').type)
+    ['application/activity+json', 'application/ld+json; profile="https://www.w3.org/ns/activitystreams"'].include?(@webfinger.link('self', 'type'))
   end
 
   def actor_url
-    @actor_url ||= @webfinger.link('self').href
+    @actor_url ||= @webfinger.link('self', 'href')
   end
 
   def actor_json
