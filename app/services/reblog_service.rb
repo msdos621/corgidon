@@ -45,7 +45,7 @@ class ReblogService < BaseService
     reblogged_status = reblog.reblog
 
     if reblogged_status.account.local?
-      LocalNotificationWorker.perform_async(reblogged_status.account_id, reblog.id, reblog.class.name)
+      LocalNotificationWorker.perform_async(reblogged_status.account_id, reblog.id, reblog.class.name, :reblog)
     elsif reblogged_status.account.activitypub? && !reblogged_status.account.following?(reblog.account)
       ActivityPub::DeliveryWorker.perform_async(build_json(reblog), reblog.account_id, reblogged_status.account.inbox_url)
     end
@@ -60,6 +60,6 @@ class ReblogService < BaseService
   end
 
   def build_json(reblog)
-    Oj.dump(serialize_payload(reblog, ActivityPub::ActivitySerializer, signer: reblog.account))
+    Oj.dump(serialize_payload(ActivityPub::ActivityPresenter.from_status(reblog), ActivityPub::ActivitySerializer, signer: reblog.account))
   end
 end

@@ -1,0 +1,17 @@
+---
+sc:
+  activerecord:
+    attributes:
+      poll:
+        expires_at: Iscadèntzia
+        options: Seberos
+    errors:
+      models:
+        account:
+          attributes:
+            username:
+              invalid: petzi lìteras, nùmeros e tratigheddos bassos
+        status:
+          attributes:
+            reblog:
+              taken: de s'istadu esistet giai

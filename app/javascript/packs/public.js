@@ -1,3 +1,4 @@
+import './public-path';
 import escapeTextContentForBrowser from 'escape-html';
 import loadPolyfills from '../mastodon/load_polyfills';
 import ready from '../mastodon/ready';
@@ -123,37 +124,39 @@ function main() {
       new Rellax('.parallax', { speed: -1 });
     }
 
-    delegate(document, '.custom-emoji', 'mouseover', getEmojiAnimationHandler('data-original'));
-    delegate(document, '.custom-emoji', 'mouseout', getEmojiAnimationHandler('data-static'));
-/* TODO resolve this
-    if (document.body.classList.contains('with-modals')) {
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      const scrollbarWidthStyle = document.createElement('style');
-      scrollbarWidthStyle.id = 'scrollbar-width';
-      document.head.appendChild(scrollbarWidthStyle);
-      scrollbarWidthStyle.sheet.insertRule(`body.with-modals--active { margin-right: ${scrollbarWidth}px; }`, 0);
-    }
-    [].forEach.call(document.querySelectorAll('[data-component="Card"]'), (content) => {
-      const props = JSON.parse(content.getAttribute('data-props'));
-      ReactDOM.render(<CardContainer locale={locale} {...props} />, content);
+    delegate(document, '#registration_user_password_confirmation,#registration_user_password', 'input', () => {
+      const password = document.getElementById('registration_user_password');
+      const confirmation = document.getElementById('registration_user_password_confirmation');
+      if (password.value && password.value !== confirmation.value) {
+        confirmation.setCustomValidity((new IntlMessageFormat(messages['password_confirmation.mismatching'] || 'Password confirmation does not match', locale)).format());
+      } else {
+        confirmation.setCustomValidity('');
+      }
     });
 
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(sizeBioText);
-    } else {
-      sizeBioText();
-    }
-*/
-    delegate(document, '.status__content__spoiler-link', 'click', function() {
-      const contentEl = this.parentNode.parentNode.querySelector('.e-content');
+    delegate(document, '#user_password,#user_password_confirmation', 'input', () => {
+      const password = document.getElementById('user_password');
+      const confirmation = document.getElementById('user_password_confirmation');
+      if (!confirmation) return;
 
-      if (contentEl.style.display === 'block') {
-        contentEl.style.display = 'none';
-        this.parentNode.style.marginBottom = 0;
+      if (password.value && password.value !== confirmation.value) {
+        confirmation.setCustomValidity((new IntlMessageFormat(messages['password_confirmation.mismatching'] || 'Password confirmation does not match', locale)).format());
+      } else {
+        confirmation.setCustomValidity('');
+      }
+    });
+
+    delegate(document, '.custom-emoji', 'mouseover', getEmojiAnimationHandler('data-original'));
+    delegate(document, '.custom-emoji', 'mouseout', getEmojiAnimationHandler('data-static'));
+
+    delegate(document, '.status__content__spoiler-link', 'click', function() {
+      const statusEl = this.parentNode.parentNode;
+
+      if (statusEl.dataset.spoiler === 'expanded') {
+        statusEl.dataset.spoiler = 'folded';
         this.textContent = (new IntlMessageFormat(messages['status.show_more'] || 'Show more', locale)).format();
       } else {
-        contentEl.style.display = 'block';
-        this.parentNode.style.marginBottom = null;
+        statusEl.dataset.spoiler = 'expanded';
         this.textContent = (new IntlMessageFormat(messages['status.show_less'] || 'Show less', locale)).format();
       }
 
@@ -161,8 +164,8 @@ function main() {
     });
 
     [].forEach.call(document.querySelectorAll('.status__content__spoiler-link'), (spoilerLink) => {
-      const contentEl = spoilerLink.parentNode.parentNode.querySelector('.e-content');
-      const message = (contentEl.style.display === 'block') ? (messages['status.show_less'] || 'Show less') : (messages['status.show_more'] || 'Show more');
+      const statusEl = spoilerLink.parentNode.parentNode;
+      const message = (statusEl.dataset.spoiler === 'expanded') ? (messages['status.show_less'] || 'Show less') : (messages['status.show_more'] || 'Show more');
       spoilerLink.textContent = (new IntlMessageFormat(message, locale)).format();
     });
   });
@@ -195,7 +198,7 @@ function main() {
       if (target.value) {
         name.innerHTML = emojify(escapeTextContentForBrowser(target.value));
       } else {
-        name.textContent = document.querySelector('#default_account_display_name').textContent;
+        name.textContent = target.dataset.default;
       }
     }
   });
@@ -234,10 +237,12 @@ function main() {
   delegate(document, '#account_locked', 'change', ({ target }) => {
     const lock = document.querySelector('.card .display-name i');
 
-    if (target.checked) {
-      lock.style.display = 'inline';
-    } else {
-      lock.style.display = 'none';
+    if (lock) {
+      if (target.checked) {
+        delete lock.dataset.hidden;
+      } else {
+        lock.dataset.hidden = 'true';
+      }
     }
   });
 
@@ -297,6 +302,17 @@ function main() {
     } else {
       target.style.display = 'block';
     }
+  });
+
+  // Empty the honeypot fields in JS in case something like an extension
+  // automatically filled them.
+  delegate(document, '#registration_new_user,#new_user', 'submit', () => {
+    ['user_website', 'user_confirm_password', 'registration_user_website', 'registration_user_confirm_password'].forEach(id => {
+      const field = document.getElementById(id);
+      if (field) {
+        field.value = '';
+      }
+    });
   });
 }
 

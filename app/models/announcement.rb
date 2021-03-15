@@ -14,7 +14,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  published_at :datetime
-#  status_ids   :bigint           is an Array
+#  status_ids   :bigint(8)        is an Array
 #
 
 class Announcement < ApplicationRecord
@@ -22,6 +22,7 @@ class Announcement < ApplicationRecord
   scope :published, -> { where(published: true) }
   scope :without_muted, ->(account) { joins("LEFT OUTER JOIN announcement_mutes ON announcement_mutes.announcement_id = announcements.id AND announcement_mutes.account_id = #{account.id}").where('announcement_mutes.id IS NULL') }
   scope :chronological, -> { order(Arel.sql('COALESCE(announcements.starts_at, announcements.scheduled_at, announcements.published_at, announcements.created_at) ASC')) }
+  scope :reverse_chronological, -> { order(Arel.sql('COALESCE(announcements.starts_at, announcements.scheduled_at, announcements.published_at, announcements.created_at) DESC')) }
 
   has_many :announcement_mutes, dependent: :destroy
   has_many :announcement_reactions, dependent: :destroy
